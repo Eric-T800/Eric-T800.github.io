@@ -8,16 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2E86AB;
-            --secondary-color: #A23B72;
-            --accent-color: #F18F01;
-            --danger-color: #C73E1D;
-            --dark-bg: #1E1E1E;
-            --light-bg: #F5F5F5;
-            --text-light: #E0E0E0;
-            --text-dark: #333333;
-            --card-bg: #2D3047;
-            --card-border: #5A5F7A;
+            --primary-color: #00d4ff;
+            --secondary-color: #7b2cbf;
+            --accent-color: #ff6b35;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.3);
+            --text-light: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
         }
 
         * {
@@ -27,42 +25,234 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             line-height: 1.6;
             color: var(--text-light);
-            background: var(--dark-bg);
+            background: #0a0a1a;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* 导航栏 */
+        /* ==================== 动态星空背景 ==================== */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0d0d2b 100%);
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: var(--opacity); transform: scale(1); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+            animation: shoot 3s ease-in-out infinite;
+            opacity: 0;
+            transform: rotate(-45deg);
+        }
+
+        @keyframes shoot {
+            0% { opacity: 0; transform: translateX(-100px) translateY(-100px) rotate(-45deg); }
+            5% { opacity: 1; }
+            20% { opacity: 0; transform: translateX(500px) translateY(500px) rotate(-45deg); }
+            100% { opacity: 0; }
+        }
+
+        /* 星云效果 */
+        .nebula {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 60%);
+            animation: nebulaPulse 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes nebulaPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* 浮动光球 */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: floatOrb 20s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-color);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary-color);
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent-color);
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -30px) scale(1.1); }
+            50% { transform: translate(-30px, 50px) scale(0.9); }
+            75% { transform: translate(-50px, -20px) scale(1.05); }
+        }
+
+        /* ==================== Liquid Glass 效果 ==================== */
+        .glass {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-strong {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.08) 0%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            backdrop-filter: blur(15px) saturate(150%);
+            -webkit-backdrop-filter: blur(15px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transition: 0.6s;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        /* ==================== 导航栏 ==================== */
         nav {
-            background: rgba(30, 30, 30, 0.95);
-            backdrop-filter: blur(10px);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
             padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0.8rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 100px;
+            margin-left: 2rem;
+            margin-right: 2rem;
         }
 
         .logo {
             font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
@@ -72,198 +262,273 @@
         }
 
         .nav-links a {
-            color: var(--text-light);
+            color: var(--text-muted);
             text-decoration: none;
-            transition: color 0.3s;
             font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--primary-color);
+            color: var(--text-light);
         }
 
-        /* 主要内容区 */
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ==================== 主区域 ==================== */
         .hero {
-            margin-top: 80px;
-            padding: 4rem 2rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #2D3047 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(46, 134, 171, 0.1) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .hero-content {
+            text-align: center;
+            max-width: 900px;
             position: relative;
             z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-badge i {
+            color: var(--accent-color);
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 0.8s ease;
+            background-size: 200% auto;
+            animation: gradientFlow 5s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
         }
 
         .hero .subtitle {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            color: var(--text-light);
-            opacity: 0.9;
-            animation: fadeInUp 0.8s ease 0.2s;
-            animation-fill-mode: both;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.4s both;
         }
 
-        .download-section {
-            margin: 2rem 0;
-            animation: fadeInUp 0.8s ease 0.4s;
-            animation-fill-mode: both;
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
         }
 
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 1rem 3rem;
-            font-size: 1.25rem;
-            font-weight: bold;
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
             text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(46, 134, 171, 0.3);
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(0, 212, 255, 0.3),
+                0 0 0 0 rgba(0, 212, 255, 0.5);
         }
 
-        .download-btn::before {
+        .btn-primary::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: 0.5s;
         }
 
-        .download-btn:hover::before {
+        .btn-primary:hover::before {
             left: 100%;
         }
 
-        .download-btn:hover {
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(0, 212, 255, 0.4),
+                0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            color: var(--text-light);
+            transition: all 0.4s;
+        }
+
+        .btn-secondary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(46, 134, 171, 0.5);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .download-btn i {
-            margin-right: 0.5rem;
+        .download-meta {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.8s both;
         }
 
-        .download-info {
-            margin-top: 1rem;
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
             font-size: 0.9rem;
-            opacity: 0.8;
         }
 
-        .download-info span {
-            margin: 0 0.5rem;
+        .meta-item i {
+            color: var(--primary-color);
         }
 
-        /* 功能展示 */
+        /* ==================== 功能特性 ==================== */
         .features {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--text-light);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            margin-bottom: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(46, 134, 171, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .feature-card:hover::before {
-            left: 100%;
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(0, 212, 255, 0.1);
         }
 
         .feature-icon {
-            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 44, 191, 0.2));
             color: var(--primary-color);
-            margin-bottom: 1rem;
-            display: inline-block;
         }
 
         .feature-card h3 {
             font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
         }
 
         .feature-card p {
-            color: var(--text-light);
-            opacity: 0.8;
+            color: var(--text-muted);
             font-size: 0.95rem;
+            line-height: 1.7;
         }
 
-        /* 截图展示 */
+        /* ==================== 截图展示 ==================== */
         .screenshots {
-            padding: 4rem 2rem;
-            background: linear-gradient(180deg, var(--dark-bg) 0%, #252525 100%);
+            padding: 6rem 2rem;
+            position: relative;
         }
 
         .screenshots-container {
@@ -279,24 +544,24 @@
         }
 
         .screenshot-card {
-            border-radius: 15px;
+            border-radius: 24px;
             overflow: hidden;
-            background: #1E1E1E;
-            border: 1px solid var(--card-border);
-            transition: all 0.3s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .screenshot-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(0, 212, 255, 0.15);
         }
 
         .screenshot-card img {
             width: 100%;
-            aspect-ratio: 16 / 9;  /* 16:9 比例 */
-            object-fit: contain;  /* 或 cover，根据需求选择 */
-            background: #0D0D0D;
-            border-bottom: 1px solid var(--card-border);
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .screenshot-info {
@@ -304,114 +569,215 @@
         }
 
         .screenshot-info h4 {
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
-            color: var(--text-light);
         }
 
         .screenshot-info p {
+            color: var(--text-muted);
             font-size: 0.9rem;
-            opacity: 0.8;
         }
 
-        /* 更新日志 */
+        /* ==================== 更新日志 ==================== */
         .changelog {
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             max-width: 800px;
             margin: 0 auto;
         }
 
         .changelog-item {
-            background: var(--card-bg);
-            border-left: 4px solid var(--primary-color);
-            padding: 1.5rem;
+            padding: 2rem;
             margin-bottom: 1.5rem;
-            border-radius: 0 10px 10px 0;
+            border-radius: 20px;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+
+        .changelog-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--primary-color);
         }
 
         .changelog-version {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 0.5rem;
         }
 
         .changelog-date {
-            font-size: 0.85rem;
-            opacity: 0.6;
+            font-size: 0.9rem;
+            color: var(--text-muted);
             margin-bottom: 1rem;
         }
 
         .changelog-item ul {
             list-style: none;
-            padding: 0;
         }
 
         .changelog-item li {
-            padding: 0.25rem 0;
+            padding: 0.4rem 0;
             padding-left: 1.5rem;
             position: relative;
+            color: var(--text-muted);
         }
 
         .changelog-item li::before {
-            content: '✓';
+            content: '✦';
             position: absolute;
             left: 0;
             color: var(--accent-color);
-            font-weight: bold;
         }
 
-        /* 常见问题 */
+        /* ==================== FAQ ==================== */
         .faq {
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             max-width: 800px;
             margin: 0 auto;
-            background: linear-gradient(180deg, var(--dark-bg) 0%, #252525 100%);
         }
 
         .faq-item {
-            margin-bottom: 1.5rem;
-            background: var(--card-bg);
-            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-radius: 16px;
             overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            transform: translateX(5px);
         }
 
         .faq-question {
-            padding: 1rem 1.5rem;
-            font-weight: bold;
+            padding: 1.5rem;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .faq-question:hover {
-            background: rgba(46, 134, 171, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+            color: var(--primary-color);
         }
 
         .faq-answer {
             padding: 0 1.5rem;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.4s ease;
+            color: var(--text-muted);
         }
 
         .faq-answer.active {
-            padding: 1rem 1.5rem;
+            padding: 1.5rem;
             max-height: 500px;
         }
 
-        /* 页脚 */
-        footer {
-            background: #1A1A1A;
-            padding: 3rem 2rem 2rem;
+        /* ==================== 下载区域 ==================== */
+        .download-section {
+            padding: 6rem 2rem;
             text-align: center;
-            border-top: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        .download-card {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                var(--primary-color),
+                transparent,
+                var(--secondary-color),
+                transparent
+            );
+            animation: rotateBorder 10s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes rotateBorder {
+            100% { transform: rotate(360deg); }
+        }
+
+        .download-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-card .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* ==================== 页脚 ==================== */
+        footer {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--text-light);
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
 
         .footer-links {
@@ -423,42 +789,25 @@
         }
 
         .footer-links a {
-            color: var(--text-light);
+            color: var(--text-muted);
             text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-color);
-        }
-
-        .social-links {
-            margin: 2rem 0;
-        }
-
-        .social-links a {
-            font-size: 1.5rem;
-            margin: 0 0.5rem;
-            color: var(--text-light);
             transition: color 0.3s;
         }
 
-        .social-links a:hover {
+        .footer-links a:hover {
             color: var(--primary-color);
         }
 
         .copyright {
-            opacity: 0.6;
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        /* 动画 */
+        /* ==================== 动画 ==================== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -466,7 +815,29 @@
             }
         }
 
-        /* 响应式设计 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==================== 响应式 ==================== */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -476,12 +847,15 @@
                 font-size: 2.5rem;
             }
 
-            .hero .subtitle {
-                font-size: 1rem;
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .download-btn {
-                padding: 0.75rem 2rem;
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
 
             .features-grid {
@@ -491,18 +865,52 @@
             .screenshot-grid {
                 grid-template-columns: 1fr;
             }
+
+            .download-meta {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .download-card {
+                padding: 2rem;
+            }
         }
 
-        /* 加载动画 */
-        .fade-in {
-            animation: fadeInUp 0.6s ease;
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+        }
+
+        /* 选中文字样式 */
+        ::selection {
+            background: rgba(0, 212, 255, 0.3);
+            color: white;
         }
     </style>
 </head>
 <body>
+    <!-- 动态星空背景 -->
+    <div class="starfield">
+        <div class="nebula"></div>
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        <div class="stars" id="stars"></div>
+        <div class="shooting-stars" id="shootingStars"></div>
+    </div>
+
     <!-- 导航栏 -->
-    <nav>
-        <div class="nav-container">
+    <nav id="navbar">
+        <div class="nav-container glass">
             <a href="#" class="logo">
                 <i class="fas fa-code"></i>
                 Compiler IDE
@@ -520,21 +928,42 @@
     <!-- 英雄区域 -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Compiler IDE</h1>
-            <p class="subtitle">现代化的C++开发环境，专为提升编程效率而设计</p>
+            <div class="hero-badge glass">
+                
+                <i class="fas fa-sparkles"></i>
+                <span>全新版本发布</span>
+            </div>
+            <h1><span class="gradient-text">Compiler IDE</span></h1>
+            <p class="subtitle">现代化的C++开发环境，专为提升编程效率而设计。集成智能补全、调试器、竞赛模式等强大功能。</p>
             
-            <div class="download-section">
+            <div class="hero-buttons">
                 <a href="https://github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe" 
-                   class="download-btn" id="downloadBtn">
+                   class="btn-primary" id="downloadBtn">
                     <i class="fas fa-download"></i>
-                    <span id="downloadBtnText">立即下载 CompilerIDE</span>
+                    <span id="downloadBtnText">立即下载</span>
                 </a>
-                <div class="download-info">
-                    <span><i class="fab fa-windows"></i> Windows</span>
-                    <span>•</span>
+                <a href="#features" class="btn-secondary glass">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>了解更多</span>
+                </a>
+            </div>
+
+            <div class="download-meta">
+                <div class="meta-item">
+                    <i class="fab fa-windows"></i>
+                    <span>Windows 10/11</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>64位系统</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-box"></i>
+                    <span>约 70MB - 940MB</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-certificate"></i>
                     <span>免费使用</span>
-                    <span>•</span>
-                    <span>最新版本</span>
                 </div>
             </div>
         </div>
@@ -542,17 +971,22 @@
 
     <!-- 功能特性 -->
     <section class="features" id="features">
-        <h2 class="section-title">强大功能，助力编程</h2>
+        <div class="section-header">
+            <div class="section-tag glass">功能特性</div>
+            <h2 class="section-title">强大功能，助力编程</h2>
+            <p class="section-desc">专业的C++开发工具，让编程变得更加高效和愉悦</p>
+        </div>
+        
         <div class="features-grid">
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-layer-group"></i>
                 </div>
                 <h3>多文件标签页编辑</h3>
-                <p>支持同时打开多个文件，标签页式管理，让代码编辑更高效</p>
+                <p>支持同时打开多个文件，标签页式管理，让代码编辑更高效便捷</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-project-diagram"></i>
                 </div>
@@ -560,23 +994,23 @@
                 <p>直观的项目文件树，支持文件和文件夹操作，轻松管理大型项目</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-palette"></i>
                 </div>
                 <h3>智能语法高亮</h3>
-                <p>支持C++14/17/20/23标准，关键字、类型、函数等彩色显示，代码一目了然</p>
+                <p>支持C++14/17/20/23标准，关键字、类型、函数等彩色显示</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-magic"></i>
                 </div>
                 <h3>自动补全</h3>
-                <p>智能代码补全、自动括号匹配、自动缩进，提升编码速度</p>
+                <p>智能代码补全、自动括号匹配、自动缩进，大幅提升编码速度</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-bug"></i>
                 </div>
@@ -584,7 +1018,7 @@
                 <p>内置GDB调试支持，断点、单步执行、变量监视，快速定位问题</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-terminal"></i>
                 </div>
@@ -592,7 +1026,7 @@
                 <p>内置终端支持中文显示，UTF-8编码，运行命令更方便</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-trophy"></i>
                 </div>
@@ -600,15 +1034,15 @@
                 <p>专为算法竞赛设计，倒计时/正计时器，禁用非必要功能，专注编码</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <h3>系统诊断工具</h3>
-                <p>实时监控CPU、内存使用率，性能图表可视化</p>
+                <p>实时监控CPU、内存使用率，性能图表可视化展示</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card glass-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-sync-alt"></i>
                 </div>
@@ -621,30 +1055,35 @@
     <!-- 界面预览 -->
     <section class="screenshots" id="screenshots">
         <div class="screenshots-container">
-            <h2 class="section-title">界面预览</h2>
+            <div class="section-header">
+                <div class="section-tag glass">界面预览</div>
+                <h2 class="section-title">精心设计的界面</h2>
+                <p class="section-desc">现代化暗色主题，护眼且美观</p>
+            </div>
+            
             <div class="screenshot-grid">
-                <div class="screenshot-card fade-in">
+                <div class="screenshot-card glass-card fade-in">
                     <img src="https://eric-t800.github.io/CompilerIDE_main.png" alt="IDE主界面">
                     <div class="screenshot-info">
                         <h4>现代化暗色主题</h4>
                         <p>护眼暗色主题，支持语法高亮和行号显示</p>
                     </div>
                 </div>
-                <div class="screenshot-card fade-in">
+                <div class="screenshot-card glass-card fade-in">
                     <img src="https://eric-t800.github.io/CompilerIDE_wjdh.png" alt="项目管理器">
                     <div class="screenshot-info">
                         <h4>项目管理器</h4>
                         <p>直观的文件树结构，支持拖拽操作</p>
                     </div>
                 </div>
-                <div class="screenshot-card fade-in">
+                <div class="screenshot-card glass-card fade-in">
                     <img src="https://eric-t800.github.io/CompilerIDE_contest.png" alt="竞赛模式">
                     <div class="screenshot-info">
                         <h4>竞赛模式计时器</h4>
                         <p>专注编程，倒计时提醒</p>
                     </div>
                 </div>
-                <div class="screenshot-card fade-in">
+                <div class="screenshot-card glass-card fade-in">
                     <img src="https://eric-t800.github.io/CompilerIDE_CPU.png" alt="诊断工具">
                     <div class="screenshot-info">
                         <h4>系统诊断工具</h4>
@@ -657,8 +1096,13 @@
 
     <!-- 更新日志 -->
     <section class="changelog" id="changelog">
-        <h2 class="section-title">更新日志</h2>
-        <div class="changelog-item fade-in">
+        <div class="section-header">
+            <div class="section-tag glass">更新日志</div>
+            <h2 class="section-title">版本历史</h2>
+            <p class="section-desc">持续更新，不断进化</p>
+        </div>
+        
+        <div class="changelog-item glass-card fade-in">
             <div class="changelog-version">版本 <span class="version-number">加载中...</span></div>
             <div class="changelog-date">2025年11月29日</div>
             <ul>
@@ -670,7 +1114,8 @@
                 <li>改进C++23标准支持，优化编译器兼容性</li>
             </ul>
         </div>
-        <div class="changelog-item fade-in">
+        
+        <div class="changelog-item glass-card fade-in">
             <div class="changelog-version">版本 2.8.6</div>
             <div class="changelog-date">2025年3月</div>
             <ul>
@@ -681,7 +1126,8 @@
                 <li>改进语法高亮，支持更多C++20/23特性</li>
             </ul>
         </div>
-        <div class="changelog-item fade-in">
+        
+        <div class="changelog-item glass-card fade-in">
             <div class="changelog-version">版本 2.0.0</div>
             <div class="changelog-date">2025年1月</div>
             <ul>
@@ -696,8 +1142,13 @@
 
     <!-- 常见问题 -->
     <section class="faq" id="faq">
-        <h2 class="section-title">常见问题</h2>
-        <div class="faq-item fade-in">
+        <div class="section-header">
+            <div class="section-tag glass">常见问题</div>
+            <h2 class="section-title">FAQ</h2>
+            <p class="section-desc">快速解答您的疑问</p>
+        </div>
+        
+        <div class="faq-item glass-card fade-in">
             <div class="faq-question" onclick="toggleFAQ(this)">
                 <span>如何安装Compiler IDE？</span>
                 <i class="fas fa-chevron-down"></i>
@@ -706,7 +1157,8 @@
                 <p>点击首页的"立即下载"按钮，下载CompilerIDE_setup.exe文件，然后运行安装程序即可。安装过程简单快捷，无需额外配置。</p>
             </div>
         </div>
-        <div class="faq-item fade-in">
+        
+        <div class="faq-item glass-card fade-in">
             <div class="faq-question" onclick="toggleFAQ(this)">
                 <span>支持的C++标准有哪些？</span>
                 <i class="fas fa-chevron-down"></i>
@@ -715,7 +1167,8 @@
                 <p>Compiler IDE支持C++14、C++17、C++20和C++23标准。IDE会自动检测您系统中编译器的支持情况，并在设置中显示可用的标准选项。</p>
             </div>
         </div>
-        <div class="faq-item fade-in">
+        
+        <div class="faq-item glass-card fade-in">
             <div class="faq-question" onclick="toggleFAQ(this)">
                 <span>竞赛模式有什么作用？</span>
                 <i class="fas fa-chevron-down"></i>
@@ -724,7 +1177,8 @@
                 <p>竞赛模式专为算法竞赛设计，提供倒计时/正计时器，并可禁用代码补全、AI建议等非必要功能，帮助您专注于解题，模拟真实竞赛环境。</p>
             </div>
         </div>
-        <div class="faq-item fade-in">
+        
+        <div class="faq-item glass-card fade-in">
             <div class="faq-question" onclick="toggleFAQ(this)">
                 <span>如何更新到最新版本？</span>
                 <i class="fas fa-chevron-down"></i>
@@ -733,7 +1187,8 @@
                 <p>Compiler IDE支持自动更新。每次启动时，IDE会自动检查新版本。发现更新后，会在关闭IDE时自动下载并安装，无需手动操作。</p>
             </div>
         </div>
-        <div class="faq-item fade-in">
+        
+        <div class="faq-item glass-card fade-in">
             <div class="faq-question" onclick="toggleFAQ(this)">
                 <span>是否支持中文？</span>
                 <i class="fas fa-chevron-down"></i>
@@ -745,28 +1200,33 @@
     </section>
 
     <!-- 下载区域 -->
-    <section class="hero" id="download" style="margin-top: 0;">
-        <div class="hero-content">
-            <h2>立即开始使用</h2>
-            <p class="subtitle">下载Compiler IDE，开启高效的C++编程之旅</p>
-            <div class="download-section">
+    <section class="download-section" id="download">
+        <div class="download-card glass-strong">
+            <div class="download-card-inner">
+                <h2 class="gradient-text">立即开始使用</h2>
+                <p class="subtitle">下载Compiler IDE，开启高效的C++编程之旅</p>
+                
                 <a href="https://github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe" 
-                   class="download-btn" id="downloadBtn">
+                   class="btn-primary" id="downloadBtn2">
                     <i class="fas fa-download"></i>
-                    <span id="downloadBtnText">立即下载 CompilerIDE</span>
+                    <span>立即下载 CompilerIDE</span>
                 </a>
-                <div class="download-info">
-                    <span><i class="fab fa-windows"></i> Windows 10/11</span>
-                    <span>•</span>
-                    <span>64位系统</span>
-                    <span>•</span>
-                    <span>约 70MB ~ 940MB</span>
+                
+                <div class="download-meta" style="margin-top: 2rem;">
+                    <div class="meta-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>安全可靠</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>快速安装</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-headset"></i>
+                        <span>技术支持</span>
+                    </div>
                 </div>
             </div>
-            <p style="margin-top: 2rem; opacity: 0.7;">
-                <i class="fas fa-info-circle"></i>
-                下载后运行安装程序，按照提示完成安装即可使用
-            </p>
         </div>
     </section>
 
@@ -774,16 +1234,17 @@
     <footer>
         <div class="footer-content">
             <div class="social-links">
-                <a href="https://github.com/Eric-T800" target="_blank">
+                <a href="https://github.com/Eric-T800" target="_blank" class="social-link glass">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="#" target="_blank">
+                <a href="#" target="_blank" class="social-link glass">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a href="#" target="_blank">
+                <a href="#" target="_blank" class="social-link glass">
                     <i class="fab fa-discord"></i>
                 </a>
             </div>
+            
             <div class="footer-links">
                 <a href="#features">功能特性</a>
                 <a href="#screenshots">界面预览</a>
@@ -791,6 +1252,7 @@
                 <a href="#faq">常见问题</a>
                 <a href="#download">下载</a>
             </div>
+            
             <p class="copyright">
                 &copy; <span class="current-year"></span> Compiler IDE. All rights reserved. | 
                 由 Eric-T800 开发 | 
@@ -800,10 +1262,54 @@
     </footer>
 
     <script>
-        // 全局版本号变量
-        let currentVersion = '2.8.9'; // 默认版本号
+        // ==================== 动态星空生成 ====================
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 200;
 
-        // 从远程获取版本号
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 随机位置
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // 随机大小
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // 随机动画参数
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+                star.style.animationDelay = Math.random() * 5 + 's';
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createShootingStars() {
+            const container = document.getElementById('shootingStars');
+            
+            setInterval(() => {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.left = Math.random() * 70 + '%';
+                shootingStar.style.top = Math.random() * 50 + '%';
+                shootingStar.style.animationDuration = (Math.random() * 1 + 2) + 's';
+                
+                container.appendChild(shootingStar);
+                
+                setTimeout(() => {
+                    shootingStar.remove();
+                }, 3000);
+            }, 4000);
+        }
+
+        // ==================== 版本号获取 ====================
+        let currentVersion = '2.8.9';
+
         async function fetchVersion() {
             try {
                 const response = await fetch('https://eric-t800.github.io/version.txt');
@@ -811,33 +1317,26 @@
                     const version = await response.text();
                     currentVersion = version.trim();
                     console.log('成功获取版本号:', currentVersion);
-                } else {
-                    console.warn('无法获取版本号，使用默认值:', currentVersion);
                 }
             } catch (error) {
-                console.warn('获取版本号失败，使用默认值:', currentVersion, error);
+                console.warn('获取版本号失败，使用默认值:', currentVersion);
             }
         }
 
-        // 更新页面中所有版本号显示
         function updateVersionDisplays() {
-            // 更新下载按钮文本
             const downloadBtnText = document.getElementById('downloadBtnText');
             if (downloadBtnText) {
-                downloadBtnText.textContent = `立即下载 CompilerIDE ${currentVersion}`;
+                downloadBtnText.textContent = `立即下载 v${currentVersion}`;
             }
 
-            // 更新更新日志中的版本号
             const versionNumbers = document.querySelectorAll('.version-number');
             versionNumbers.forEach(el => {
                 el.textContent = currentVersion;
             });
 
-            // 更新页面标题（可选）
             document.title = `Compiler IDE ${currentVersion} - 现代化C++开发环境`;
         }
 
-        // 设置当前年份
         function updateCopyrightYear() {
             const yearElements = document.querySelectorAll('.current-year');
             const currentYear = new Date().getFullYear();
@@ -846,17 +1345,40 @@
             });
         }
 
-        // FAQ展开/收起
+        // ==================== FAQ 交互 ====================
         function toggleFAQ(element) {
             const answer = element.nextElementSibling;
             const icon = element.querySelector('i');
-            
+            const allAnswers = document.querySelectorAll('.faq-answer');
+            const allIcons = document.querySelectorAll('.faq-question i');
+
+            // 关闭其他FAQ
+            allAnswers.forEach(a => {
+                if (a !== answer) a.classList.remove('active');
+            });
+            allIcons.forEach(i => {
+                if (i !== icon) {
+                    i.classList.remove('fa-chevron-up');
+                    i.classList.add('fa-chevron-down');
+                }
+            });
+
             answer.classList.toggle('active');
             icon.classList.toggle('fa-chevron-down');
             icon.classList.toggle('fa-chevron-up');
         }
 
-        // 平滑滚动
+        // ==================== 导航栏滚动效果 ====================
+        function handleNavScroll() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // ==================== 平滑滚动 ====================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -870,7 +1392,7 @@
             });
         });
 
-        // 滚动时添加动画
+        // ==================== 滚动动画 ====================
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -879,44 +1401,79 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        // 页面加载完成后初始化
+        // ==================== 鼠标跟随光效 ====================
+        function createMouseGlow() {
+            const glow = document.createElement('div');
+            glow.style.cssText = `
+                position: fixed;
+                width: 400px;
+                height: 400px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+                pointer-events: none;
+                z-index: 0;
+                transition: transform 0.3s ease-out;
+                transform: translate(-50%, -50%);
+            `;
+            document.body.appendChild(glow);
+
+            document.addEventListener('mousemove', (e) => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        }
+
+        // ==================== 初始化 ====================
         window.addEventListener('load', async function() {
-            console.log('Compiler IDE官网加载完成');
-            
+            console.log('Compiler IDE 官网加载完成');
+
+            // 创建星空
+            createStars();
+            createShootingStars();
+
+            // 创建鼠标光效
+            createMouseGlow();
+
             // 获取版本号
             await fetchVersion();
-            
-            // 更新页面显示
             updateVersionDisplays();
             updateCopyrightYear();
 
-            // 设置初始动画
+            // 初始化滚动动画
             document.querySelectorAll('.fade-in').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'all 0.6s ease';
                 observer.observe(el);
             });
 
-            // 添加下载按钮点击效果
-            const downloadBtn = document.getElementById('downloadBtn');
-            if (downloadBtn) {
-                downloadBtn.addEventListener('click', function(e) {
-                    console.log('下载被点击，版本:', currentVersion);
-                    
+            // 导航栏滚动监听
+            window.addEventListener('scroll', handleNavScroll);
+
+            // 下载按钮点击效果
+            const downloadBtns = document.querySelectorAll('.btn-primary');
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const originalHTML = this.innerHTML;
                     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 准备下载...';
                     
                     setTimeout(() => {
-                        this.innerHTML = `<i class="fas fa-download"></i> 立即下载 CompilerIDE ${currentVersion}`;
+                        this.innerHTML = originalHTML;
                     }, 2000);
                 });
-            }
+            });
+        });
+
+        // 页面滚动视差效果
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const orbs = document.querySelectorAll('.floating-orb');
+            orbs.forEach((orb, index) => {
+                const speed = 0.05 * (index + 1);
+                orb.style.transform = `translateY(${scrolled * speed}px)`;
+            });
         });
     </script>
 </body>
