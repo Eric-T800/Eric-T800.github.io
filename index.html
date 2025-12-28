@@ -639,169 +639,335 @@
             font-size: 0.9rem;
         }
 
-        /* ==================== IDE对比表格 ==================== */
-        .comparison {
-            padding: 6rem 2rem;
-            position: relative;
-        }
+/* ==================== IDE对比表格 ==================== */
+.comparison {
+    padding: 6rem 2rem;
+    position: relative;
+}
 
-        .comparison-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.comparison-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        .comparison-table-wrapper {
-            border-radius: 24px;
-            overflow: hidden;
-            margin-top: 3rem;
-            overflow-x: auto;
-        }
+.comparison-table-wrapper {
+    border-radius: 24px;
+    overflow: visible; /* 修改：让推荐标签可以显示 */
+    margin-top: 3rem;
+    padding-top: 20px; /* 新增：为推荐标签留出空间 */
+}
 
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-            min-width: 800px;
-        }
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    table-layout: fixed; /* 新增：固定表格布局 */
+}
 
-        .comparison-table thead {
-            background: linear-gradient(
-                135deg,
-                rgba(0, 212, 255, 0.2) 0%,
-                rgba(123, 44, 191, 0.2) 100%
-            );
-        }
+.comparison-table thead {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 212, 255, 0.2) 0%,
+        rgba(123, 44, 191, 0.2) 100%
+    );
+}
 
-        .comparison-table th {
-            padding: 1.5rem 1rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+.comparison-table th {
+    padding: 1.5rem 0.75rem; /* 调整：减少左右内边距 */
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem; /* 调整：稍微减小字体 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative; /* 新增：为推荐标签定位 */
+}
 
-        .comparison-table th:first-child {
-            text-align: left;
-            padding-left: 2rem;
-        }
+.comparison-table th:first-child {
+    text-align: left;
+    padding-left: 1.5rem;
+    width: 30%; /* 新增：固定第一列宽度 */
+}
 
-        .comparison-table th.highlight {
-            background: linear-gradient(
-                135deg,
-                rgba(0, 212, 255, 0.3) 0%,
-                rgba(123, 44, 191, 0.3) 100%
-            );
-            position: relative;
-        }
+.comparison-table th.highlight {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 212, 255, 0.3) 0%,
+        rgba(123, 44, 191, 0.3) 100%
+    );
+    position: relative;
+    overflow: visible; /* 修改：确保推荐标签可见 */
+}
 
-        .comparison-table th.highlight::before {
-            content: '推荐';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            font-size: 0.7rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 100px;
-            font-weight: 600;
-        }
+.comparison-table th.highlight::before {
+    content: '推荐';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-weight: 600;
+    white-space: nowrap; /* 新增：防止文字换行 */
+    z-index: 10; /* 新增：确保在最上层 */
+}
 
-        .comparison-table tbody tr {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
+.comparison-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
 
-        .comparison-table tbody tr:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
+.comparison-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
 
-        .comparison-table td {
-            padding: 1.25rem 1rem;
-            text-align: center;
-            color: var(--text-muted);
-        }
+.comparison-table td {
+    padding: 1rem 0.5rem; /* 调整：减少内边距 */
+    text-align: center;
+    color: var(--text-muted);
+    word-wrap: break-word; /* 新增：允许文字换行 */
+}
 
-        .comparison-table td:first-child {
-            text-align: left;
-            padding-left: 2rem;
-            color: var(--text-light);
-            font-weight: 500;
-        }
+.comparison-table td:first-child {
+    text-align: left;
+    padding-left: 1.5rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
 
-        .comparison-table td.highlight {
-            background: rgba(0, 212, 255, 0.05);
-        }
+.comparison-table td.highlight {
+    background: rgba(0, 212, 255, 0.05);
+}
 
-        .comparison-table .feature-name {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+.comparison-table .feature-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 调整：减少间距 */
+}
 
-        .comparison-table .feature-name i {
-            color: var(--primary-color);
-            font-size: 1rem;
-            width: 20px;
-        }
+.comparison-table .feature-name i {
+    color: var(--primary-color);
+    font-size: 0.9rem; /* 调整：稍微减小图标 */
+    width: 18px;
+    flex-shrink: 0; /* 新增：防止图标被压缩 */
+}
 
-        /* 对比表格图标样式 */
-        .check-yes {
-            color: #22c55e !important;
-            font-size: 1.2rem;
-        }
+.comparison-table .feature-name span {
+    font-size: 0.9rem; /* 新增：稍微减小文字 */
+}
 
-        .check-no {
-            color: #ef4444 !important;
-            font-size: 1.2rem;
-        }
+/* 对比表格图标样式 */
+.check-yes {
+    color: #22c55e !important;
+    font-size: 1.1rem; /* 调整：稍微减小 */
+}
 
-        .check-partial {
-            color: #f59e0b !important;
-            font-size: 1.2rem;
-        }
+.check-no {
+    color: #ef4444 !important;
+    font-size: 1.1rem;
+}
 
-        .ide-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
+.check-partial {
+    color: #f59e0b !important;
+    font-size: 1.1rem;
+}
 
-        .ide-logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-        }
+.ide-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem; /* 调整：减少间距 */
+}
 
-        .ide-logo .ide-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
+.ide-logo img {
+    width: 36px; /* 调整：稍微减小 */
+    height: 36px;
+    border-radius: 8px;
+}
 
-        .ide-logo .ide-version {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
+.ide-logo .ide-name {
+    font-weight: 600;
+    font-size: 0.85rem; /* 调整：减小字体 */
+    line-height: 1.2;
+}
 
-        /* 表格底部说明 */
-        .comparison-legend {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
+.ide-logo .ide-version {
+    font-size: 0.7rem; /* 调整：减小字体 */
+    color: var(--text-muted);
+    font-weight: 400;
+}
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+/* 表格底部说明 */
+.comparison-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ==================== 响应式调整 ==================== */
+@media (max-width: 1024px) {
+    .comparison-table {
+        font-size: 0.85rem;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.875rem 0.4rem;
+    }
+    
+    .comparison-table td:first-child,
+    .comparison-table th:first-child {
+        padding-left: 1rem;
+    }
+    
+    .ide-logo .ide-name {
+        font-size: 0.75rem;
+    }
+    
+    .ide-logo .ide-version {
+        font-size: 0.65rem;
+    }
+    
+    .comparison-table .feature-name span {
+        font-size: 0.8rem;
+    }
+    
+    .comparison-table .feature-name i {
+        font-size: 0.8rem;
+        width: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .comparison {
+        padding: 4rem 1rem;
+    }
+    
+    .comparison-table-wrapper {
+        border-radius: 16px;
+        padding-top: 18px;
+    }
+    
+    .comparison-table {
+        font-size: 0.75rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.75rem 0.25rem;
+    }
+    
+    .comparison-table td:first-child,
+    .comparison-table th:first-child {
+        padding-left: 0.75rem;
+        width: 28%;
+    }
+    
+    .comparison-table th.highlight::before {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.5rem;
+        top: -10px;
+    }
+
+    .ide-logo .ide-name {
+        font-size: 0.65rem;
+    }
+
+    .ide-logo .ide-version {
+        display: none; /* 隐藏版本号节省空间 */
+    }
+    
+    .ide-logo img {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .comparison-table .feature-name {
+        gap: 0.3rem;
+    }
+
+    .comparison-table .feature-name i {
+        font-size: 0.7rem;
+        width: 14px;
+    }
+    
+    .comparison-table .feature-name span {
+        font-size: 0.7rem;
+        line-height: 1.3;
+    }
+
+    .check-yes,
+    .check-no,
+    .check-partial {
+        font-size: 0.9rem;
+    }
+    
+    .comparison-legend {
+        gap: 1rem;
+    }
+    
+    .legend-item {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .comparison-table {
+        font-size: 0.65rem;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.6rem 0.2rem;
+    }
+    
+    .comparison-table td:first-child,
+    .comparison-table th:first-child {
+        padding-left: 0.5rem;
+        width: 26%;
+    }
+    
+    .ide-logo .ide-name {
+        font-size: 0.6rem;
+    }
+    
+    .ide-logo img {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+    }
+    
+    .comparison-table .feature-name i {
+        display: none; /* 极小屏幕隐藏图标 */
+    }
+    
+    .comparison-table .feature-name span {
+        font-size: 0.65rem;
+    }
+    
+    .check-yes,
+    .check-no,
+    .check-partial {
+        font-size: 0.8rem;
+    }
+    
+    .comparison-table th.highlight::before {
+        font-size: 0.55rem;
+        padding: 0.15rem 0.4rem;
+    }
+}
+
 
         /* ==================== 更新日志 ==================== */
         .changelog {
@@ -1393,7 +1559,7 @@
                             <th>
                                 <div class="ide-logo">
                                     <span class="ide-name">Visual Studio</span>
-                                    <span class="ide-version">v2022</span>
+                                    <span class="ide-version">v2026</span>
                                 </div>
                             </th>
                         </tr>
@@ -1565,7 +1731,7 @@
                             <td class="highlight"><span style="color: #22c55e;">2025年</span></td>
                             <td><span style="color: #ef4444;">2015年</span></td>
                             <td><span style="color: #f59e0b;">2020年</span></td>
-                            <td><span style="color: #22c55e;">2024年</span></td>
+                            <td><span style="color: #22c55e;">2025年</span></td>
                         </tr>
                     </tbody>
                 </table>
