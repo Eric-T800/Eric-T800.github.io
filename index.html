@@ -1501,7 +1501,7 @@
         <div class="hero-content">
             <div class="hero-badge glass">
                 <i class="fas fa-sparkles"></i>
-                <span>全新版本发布</span>
+                <span>全新版本现已发布</span>
             </div>
             <h1><span class="gradient-text">Compiler IDE</span></h1>
             <p class="subtitle">现代化的C++开发环境，专为提升编程效率而设计。集成智能补全、调试器、竞赛模式等强大功能。</p>
@@ -2204,23 +2204,26 @@ async function fetchLatestVersion() {
     
     try {
         const response = await fetch('https://eric-t800.github.io/version.txt');
+        if (!response.ok) throw new Error('Failed to fetch');
+        
         const version = (await response.text()).trim();
         
+        // 验证版本号格式
         if (/^\d+\.\d+(\.\d+)?$/.test(version)) {
+            // 更新所有版本号显示
             document.querySelectorAll('.version-number').forEach(el => {
                 el.textContent = version;
             });
             
+            // 更新下载按钮
             const downloadBtnText = document.getElementById('downloadBtnText');
             if (downloadBtnText) {
                 downloadBtnText.textContent = `立即下载 v${version}`;
             }
         }
     } catch (error) {
-        console.log('获取版本信息失败，使用默认版本号');
-        document.querySelectorAll('.version-number').forEach(el => {
-            el.textContent = defaultVersion;
-        });
+        console.log('使用默认版本号:', defaultVersion);
+        // 失败时保持 HTML 中的默认值，不需要额外操作
     }
 }
 
