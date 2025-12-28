@@ -1510,7 +1510,7 @@
                 <a href="https://github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe" 
                    class="btn-primary" id="downloadBtn">
                     <i class="fas fa-download"></i>
-                    <span id="downloadBtnText">立即下载</span>
+                        <span id="downloadBtnText">立即下载 v<span class="version-number">3.0.0</span></span>
                 </a>
                 <a href="#features" class="btn-secondary glass">
                     <i class="fas fa-arrow-right"></i>
@@ -2198,123 +2198,123 @@ createStars();
             });
         });
 
-// ==================== 获取最新版本号 ====================
-async function fetchLatestVersion() {
-    const defaultVersion = '3.0.0';
-    
-    try {
-        const response = await fetch('https://eric-t800.github.io/version.txt');
-        if (!response.ok) throw new Error('Failed to fetch');
+        // ==================== 获取最新版本号 ====================
+        async function fetchLatestVersion() {
+            const defaultVersion = '3.0.0';
+            
+            try {
+                const response = await fetch('https://eric-t800.github.io/version.txt?' + Date.now());
+                if (!response.ok) throw new Error('Failed to fetch');
+                
+                const version = (await response.text()).trim();
+                
+                // 验证版本号格式
+                if (/^\d+\.\d+(\.\d+)?$/.test(version)) {
+                    // 更新所有 .version-number 元素
+                    document.querySelectorAll('.version-number').forEach(el => {
+                        el.textContent = version;
+                    });
+                    
+                    console.log('版本号已更新为:', version);
+                } else {
+                    throw new Error('Invalid version format');
+                }
+            } catch (error) {
+                console.log('获取版本失败，使用默认版本:', defaultVersion);
+                document.querySelectorAll('.version-number').forEach(el => {
+                    el.textContent = defaultVersion;
+                });
+            }
+        }
         
-        const version = (await response.text()).trim();
-        
-        // 验证版本号格式
-        if (/^\d+\.\d+(\.\d+)?$/.test(version)) {
-            // 更新所有版本号显示
+        // 更新所有版本号显示
+        function updateVersionDisplay(version) {
+            // 更新所有 .version-number 元素
             document.querySelectorAll('.version-number').forEach(el => {
                 el.textContent = version;
             });
             
-            // 更新下载按钮
+            // 更新下载按钮文字
             const downloadBtnText = document.getElementById('downloadBtnText');
             if (downloadBtnText) {
-                downloadBtnText.textContent = `立即下载 v${version}`;
+                downloadBtnText.innerHTML = `立即下载 v${version}`;
             }
         }
-    } catch (error) {
-        console.log('使用默认版本号:', defaultVersion);
-        // 失败时保持 HTML 中的默认值，不需要额外操作
-    }
-}
-
-// ==================== 从 changelogs.html 获取最新两个版本 ====================
-async function fetchChangelogPreview() {
-    const container = document.getElementById('changelog-preview');
-    
-    try {
-        const response = await fetch('https://eric-t800.github.io/changelogs.html');
-        const html = await response.text();
         
-        // 解析 HTML
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        
-        // 获取所有更新日志项
-        const allItems = doc.querySelectorAll('.changelog-item');
-        
-        if (allItems.length >= 2) {
-            // 只取前两个
-            let previewHTML = '';
+        // 从 changelogs.html 获取最新两个版本
+        async function fetchChangelogPreview() {
+            const container = document.getElementById('changelog-preview');
+            if (!container) return;
             
-            for (let i = 0; i < 2 && i < allItems.length; i++) {
-                const item = allItems[i];
-                // 克隆并修改样式
-                const clone = item.cloneNode(true);
-                clone.classList.add('fade-in');
+            try {
+                const response = await fetch('https://eric-t800.github.io/changelogs.html');
+                if (!response.ok) throw new Error('Failed to fetch');
                 
-                // 移除时间线相关的特殊样式（如果有的话）
-                clone.style.marginLeft = '0';
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
                 
-                previewHTML += clone.outerHTML;
-            }
-            
-            container.innerHTML = previewHTML;
-            
-            // 重新触发动画
-            setTimeout(() => {
-                container.querySelectorAll('.fade-in').forEach((el, index) => {
+                // 获取前两个更新日志
+                const items = doc.querySelectorAll('.changelog-item');
+                
+                if (items.length >= 2) {
+                    container.innerHTML = '';
+                    
+                    for (let i = 0; i < 2; i++) {
+                        const clone = items[i].cloneNode(true);
+                        clone.classList.add('fade-in');
+                        container.appendChild(clone);
+                    }
+                    
+                    // 触发动画
                     setTimeout(() => {
-                        el.classList.add('visible');
-                    }, index * 150);
-                });
-            }, 100);
-            
-        } else {
-            throw new Error('未找到足够的更新日志');
+                        container.querySelectorAll('.fade-in').forEach((el, index) => {
+                            setTimeout(() => el.classList.add('visible'), index * 150);
+                        });
+                    }, 100);
+                } else {
+                    throw new Error('Not enough items');
+                }
+            } catch (error) {
+                console.log('加载更新日志失败，使用备用内容');
+                showFallbackChangelog(container);
+            }
         }
         
-    } catch (error) {
-        console.log('无法加载更新日志，使用备用内容:', error);
+        // 备用更新日志内容
+        function showFallbackChangelog(container) {
+            container.innerHTML = `
+                <div class="changelog-item glass-card fade-in visible">
+                    <div class="changelog-version">
+                        版本 <span class="version-number">3.0.0</span>
+                        <span class="latest-badge">最新</span>
+                    </div>
+                    <div class="changelog-date">2025年6月</div>
+                    <ul>
+                        <li>修复了若干已知的 Bug</li>
+                        <li>新增了比赛模式</li>
+                        <li>新增了诊断工具、代码片段功能</li>
+                    </ul>
+                </div>
+                <div class="changelog-item glass-card fade-in visible">
+                    <div class="changelog-version">版本 2.9.0</div>
+                    <div class="changelog-date">2025年5月</div>
+                    <ul>
+                        <li>修复已知 Bug，优化用户体验</li>
+                    </ul>
+                </div>
+            `;
+        }
         
-        // 备用内容
-        container.innerHTML = `
-            <div class="changelog-item glass-card fade-in visible">
-                <div class="changelog-version">
-                    版本 <span class="version-number">3.0.0</span>
-                    <span class="version-type major">Major</span>
-                    <span class="latest-badge">最新</span>
-                </div>
-                <div class="changelog-date">2025年6月</div>
-                <ul>
-                    <li>修复了若干已知的 Bug</li>
-                    <li>新增了比赛模式</li>
-                    <li>新增了诊断工具、代码片段功能</li>
-                </ul>
-            </div>
-            
-            <div class="changelog-item glass-card fade-in visible">
-                <div class="changelog-version">
-                    版本 2.9.0
-                    <span class="version-type minor">Minor</span>
-                </div>
-                <div class="changelog-date">2025年5月</div>
-                <ul>
-                    <li>修复已知 Bug，优化用户体验</li>
-                </ul>
-            </div>
-        `;
-    }
-}
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createShootingStars();
+            handleScrollAnimations();
+            fetchLatestVersion();
+            fetchChangelogPreview();
+        });
 
-// ==================== 修改初始化函数 ====================
-// 找到 DOMContentLoaded 事件监听器，添加以下调用：
-document.addEventListener('DOMContentLoaded', () => {
-    createStars();
-    createShootingStars();
-    handleScrollAnimations();
-    fetchLatestVersion();      // 获取版本号
-    fetchChangelogPreview();   // 获取更新日志预览
-});
 
 
         // ==================== 页面加载完成动画 ====================
