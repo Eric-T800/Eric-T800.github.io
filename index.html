@@ -64,22 +64,50 @@
             50% { opacity: var(--opacity); transform: scale(1); }
         }
 
+        /* 流星效果 */
         .shooting-star {
             position: absolute;
             width: 150px;
             height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
-            animation: shoot 3s ease-in-out infinite;
+            background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4), transparent);
+            animation: shoot 4s ease-in-out infinite;
             opacity: 0;
-            transform: rotate(-45deg);
+            transform-origin: left center;
+            border-radius: 100px;
+        }
+        
+        /* 流星尾巴光晕 */
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        @keyframes shoot {
+            0% { 
+                opacity: 0; 
+                transform: rotate(-45deg) translateX(0);
+            }
+            2% { 
+                opacity: 1; 
+            }
+            15% { 
+                opacity: 0; 
+                transform: rotate(-45deg) translateX(800px);
+            }
+            100% { 
+                opacity: 0; 
+                transform: rotate(-45deg) translateX(800px);
+            }
         }
 
-        @keyframes shoot {
-            0% { opacity: 0; transform: translateX(-100px) translateY(-100px) rotate(-45deg); }
-            5% { opacity: 1; }
-            20% { opacity: 0; transform: translateX(500px) translateY(500px) rotate(-45deg); }
-            100% { opacity: 0; }
-        }
 
         /* 星云效果 */
         .nebula {
@@ -1913,35 +1941,39 @@
     <script>
         // ==================== 生成星空背景 ====================
         function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const shootingStarsContainer = document.getElementById('shootingStars');
-            
-            // 创建静态星星
-            for (let i = 0; i < 200; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
-                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-                star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
-                star.style.animationDelay = Math.random() * 5 + 's';
-                starsContainer.appendChild(star);
-            }
-            
-            // 创建流星
-            for (let i = 0; i < 5; i++) {
-                const shootingStar = document.createElement('div');
-                shootingStar.className = 'shooting-star';
-                shootingStar.style.left = Math.random() * 70 + '%';
-                shootingStar.style.top = Math.random() * 50 + '%';
-                shootingStar.style.animationDelay = (Math.random() * 10 + i * 3) + 's';
-                shootingStarsContainer.appendChild(shootingStar);
-            }
-        }
-        
-        createStars();
+    const starsContainer = document.getElementById('stars');
+    const shootingStarsContainer = document.getElementById('shootingStars');
+    
+    // 创建静态星星
+    for (let i = 0; i < 200; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.width = Math.random() * 3 + 1 + 'px';
+        star.style.height = star.style.width;
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+        star.style.animationDelay = Math.random() * 5 + 's';
+        starsContainer.appendChild(star);
+    }
+    
+    // 创建流星 - 修复位置和延迟
+    for (let i = 0; i < 6; i++) {
+        const shootingStar = document.createElement('div');
+        shootingStar.className = 'shooting-star';
+        // 流星从屏幕左上区域开始，随机分布
+        shootingStar.style.left = Math.random() * 60 + '%';
+        shootingStar.style.top = Math.random() * 40 + '%';
+        // 随机延迟，让流星不同时出现
+        shootingStar.style.animationDelay = (Math.random() * 8 + i * 2) + 's';
+        // 随机动画时长，让流星速度有差异
+        shootingStar.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        shootingStarsContainer.appendChild(shootingStar);
+    }
+}
+
+createStars();
 
         // ==================== 导航栏滚动效果 ====================
         const navbar = document.getElementById('navbar');
