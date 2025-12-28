@@ -69,18 +69,19 @@
             position: absolute;
             width: 150px;
             height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4), transparent);
+            /* 修改：渐变从透明到亮，让头部在右边（移动方向前方） */
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(255,255,255,0.9));
             animation: shoot 4s ease-in-out infinite;
             opacity: 0;
             transform-origin: left center;
             border-radius: 100px;
         }
         
-        /* 流星尾巴光晕 */
+        /* 流星头部光晕 */
         .shooting-star::before {
             content: '';
             position: absolute;
-            left: 0;
+            right: 0;  /* 修改：从 left 改成 right */
             top: 50%;
             transform: translateY(-50%);
             width: 8px;
@@ -107,7 +108,6 @@
                 transform: rotate(45deg) translateX(800px);
             }
         }
-
 
         /* 星云效果 */
         .nebula {
