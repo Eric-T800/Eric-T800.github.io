@@ -109,6 +109,8 @@
             }
         }
 
+
+
         /* 星云效果 */
         .nebula {
             position: absolute;
@@ -237,44 +239,6 @@
         .glass-card:hover::before {
             left: 100%;
         }
-
-        /* ==================== 查看全部更新历史按钮 ==================== */
-.changelog-more {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.btn-changelog {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 100px;
-    color: var(--text-light);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.btn-changelog:hover {
-    transform: translateY(-5px);
-    background: rgba(0, 212, 255, 0.1);
-    border-color: var(--primary-color);
-    box-shadow: 
-        0 15px 40px rgba(0, 212, 255, 0.2),
-        0 0 20px rgba(0, 212, 255, 0.1);
-}
-
-.btn-changelog i:last-child {
-    transition: transform 0.3s;
-}
-
-.btn-changelog:hover i:last-child {
-    transform: translateX(5px);
-}
-
 
         /* ==================== 导航栏 ==================== */
         nav {
@@ -705,429 +669,335 @@
             font-size: 0.9rem;
         }
 
-        /* ==================== 更新日志加载状态 ==================== */
-.changelog-loading {
-    text-align: center;
-    padding: 3rem;
-    border-radius: 20px;
-    margin-bottom: 1.5rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    font-size: 1.1rem;
-}
-
-.changelog-loading i {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-}
-
-/* ==================== 查看全部更新历史按钮 ==================== */
-.changelog-more {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.btn-changelog {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 100px;
-    color: var(--text-light);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.btn-changelog:hover {
-    transform: translateY(-5px);
-    background: rgba(0, 212, 255, 0.1);
-    border-color: var(--primary-color);
-    box-shadow: 
-        0 15px 40px rgba(0, 212, 255, 0.2),
-        0 0 20px rgba(0, 212, 255, 0.1);
-}
-
-.btn-changelog i:last-child {
-    transition: transform 0.3s;
-}
-
-.btn-changelog:hover i:last-child {
-    transform: translateX(5px);
-}
-
-/* ==================== 最新版本徽章 ==================== */
-.latest-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-left: 0.75rem;
-    vertical-align: middle;
-}
-
-.version-type {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 6px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    margin-left: 0.5rem;
-    text-transform: uppercase;
-}
-
-.version-type.major {
-    background: rgba(255, 107, 53, 0.2);
-    color: var(--accent-color);
-}
-
-.version-type.minor {
-    background: rgba(0, 212, 255, 0.2);
-    color: var(--primary-color);
-}
-
-.version-type.patch {
-    background: rgba(123, 44, 191, 0.2);
-    color: var(--secondary-color);
-}
-
-
-/* ==================== IDE对比表格 ==================== */
-.comparison {
-    padding: 6rem 2rem;
-    position: relative;
-}
-
-.comparison-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.comparison-table-wrapper {
-    border-radius: 24px;
-    overflow: visible; /* 修改：让推荐标签可以显示 */
-    margin-top: 3rem;
-    padding-top: 20px; /* 新增：为推荐标签留出空间 */
-}
-
-.comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-    table-layout: fixed; /* 新增：固定表格布局 */
-}
-
-.comparison-table thead {
-    background: linear-gradient(
-        135deg,
-        rgba(0, 212, 255, 0.2) 0%,
-        rgba(123, 44, 191, 0.2) 100%
-    );
-}
-
-.comparison-table th {
-    padding: 1.5rem 0.75rem; /* 调整：减少左右内边距 */
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.9rem; /* 调整：稍微减小字体 */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative; /* 新增：为推荐标签定位 */
-}
-
-.comparison-table th:first-child {
-    text-align: left;
-    padding-left: 1.5rem;
-    width: 30%; /* 新增：固定第一列宽度 */
-}
-
-.comparison-table th.highlight {
-    background: linear-gradient(
-        135deg,
-        rgba(0, 212, 255, 0.3) 0%,
-        rgba(123, 44, 191, 0.3) 100%
-    );
-    position: relative;
-    overflow: visible; /* 修改：确保推荐标签可见 */
-}
-
-.comparison-table th.highlight::before {
-    content: '推荐';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    font-size: 0.7rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 100px;
-    font-weight: 600;
-    white-space: nowrap; /* 新增：防止文字换行 */
-    z-index: 10; /* 新增：确保在最上层 */
-}
-
-.comparison-table tbody tr {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-.comparison-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.comparison-table td {
-    padding: 1rem 0.5rem; /* 调整：减少内边距 */
-    text-align: center;
-    color: var(--text-muted);
-    word-wrap: break-word; /* 新增：允许文字换行 */
-}
-
-.comparison-table td:first-child {
-    text-align: left;
-    padding-left: 1.5rem;
-    color: var(--text-light);
-    font-weight: 500;
-}
-
-.comparison-table td.highlight {
-    background: rgba(0, 212, 255, 0.05);
-}
-
-.comparison-table .feature-name {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* 调整：减少间距 */
-}
-
-.comparison-table .feature-name i {
-    color: var(--primary-color);
-    font-size: 0.9rem; /* 调整：稍微减小图标 */
-    width: 18px;
-    flex-shrink: 0; /* 新增：防止图标被压缩 */
-}
-
-.comparison-table .feature-name span {
-    font-size: 0.9rem; /* 新增：稍微减小文字 */
-}
-
-/* 对比表格图标样式 */
-.check-yes {
-    color: #22c55e !important;
-    font-size: 1.1rem; /* 调整：稍微减小 */
-}
-
-.check-no {
-    color: #ef4444 !important;
-    font-size: 1.1rem;
-}
-
-.check-partial {
-    color: #f59e0b !important;
-    font-size: 1.1rem;
-}
-
-.ide-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem; /* 调整：减少间距 */
-}
-
-.ide-logo img {
-    width: 36px; /* 调整：稍微减小 */
-    height: 36px;
-    border-radius: 8px;
-}
-
-.ide-logo .ide-name {
-    font-weight: 600;
-    font-size: 0.85rem; /* 调整：减小字体 */
-    line-height: 1.2;
-}
-
-.ide-logo .ide-version {
-    font-size: 0.7rem; /* 调整：减小字体 */
-    color: var(--text-muted);
-    font-weight: 400;
-}
-
-/* 表格底部说明 */
-.comparison-legend {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-/* ==================== 响应式调整 ==================== */
-@media (max-width: 1024px) {
-    .comparison-table {
-        font-size: 0.85rem;
-    }
-    
-    .comparison-table th,
-    .comparison-table td {
-        padding: 0.875rem 0.4rem;
-    }
-    
-    .comparison-table td:first-child,
-    .comparison-table th:first-child {
-        padding-left: 1rem;
-    }
-    
-    .ide-logo .ide-name {
-        font-size: 0.75rem;
-    }
-    
-    .ide-logo .ide-version {
-        font-size: 0.65rem;
-    }
-    
-    .comparison-table .feature-name span {
-        font-size: 0.8rem;
-    }
-    
-    .comparison-table .feature-name i {
-        font-size: 0.8rem;
-        width: 16px;
-    }
-}
-
-@media (max-width: 768px) {
-    .comparison {
-        padding: 4rem 1rem;
-    }
-    
-    .comparison-table-wrapper {
-        border-radius: 16px;
-        padding-top: 18px;
-    }
-    
-    .comparison-table {
-        font-size: 0.75rem;
-    }
-
-    .comparison-table th,
-    .comparison-table td {
-        padding: 0.75rem 0.25rem;
-    }
-    
-    .comparison-table td:first-child,
-    .comparison-table th:first-child {
-        padding-left: 0.75rem;
-        width: 28%;
-    }
-    
-    .comparison-table th.highlight::before {
-        font-size: 0.6rem;
-        padding: 0.2rem 0.5rem;
-        top: -10px;
-    }
-
-    .ide-logo .ide-name {
-        font-size: 0.65rem;
-    }
-
-    .ide-logo .ide-version {
-        display: none; /* 隐藏版本号节省空间 */
-    }
-    
-    .ide-logo img {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .comparison-table .feature-name {
-        gap: 0.3rem;
-    }
-
-    .comparison-table .feature-name i {
-        font-size: 0.7rem;
-        width: 14px;
-    }
-    
-    .comparison-table .feature-name span {
-        font-size: 0.7rem;
-        line-height: 1.3;
-    }
-
-    .check-yes,
-    .check-no,
-    .check-partial {
-        font-size: 0.9rem;
-    }
-    
-    .comparison-legend {
-        gap: 1rem;
-    }
-    
-    .legend-item {
-        font-size: 0.75rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .comparison-table {
-        font-size: 0.65rem;
-    }
-    
-    .comparison-table th,
-    .comparison-table td {
-        padding: 0.6rem 0.2rem;
-    }
-    
-    .comparison-table td:first-child,
-    .comparison-table th:first-child {
-        padding-left: 0.5rem;
-        width: 26%;
-    }
-    
-    .ide-logo .ide-name {
-        font-size: 0.6rem;
-    }
-    
-    .ide-logo img {
-        width: 24px;
-        height: 24px;
-        border-radius: 6px;
-    }
-    
-    .comparison-table .feature-name i {
-        display: none; /* 极小屏幕隐藏图标 */
-    }
-    
-    .comparison-table .feature-name span {
-        font-size: 0.65rem;
-    }
-    
-    .check-yes,
-    .check-no,
-    .check-partial {
-        font-size: 0.8rem;
-    }
-    
-    .comparison-table th.highlight::before {
-        font-size: 0.55rem;
-        padding: 0.15rem 0.4rem;
-    }
-}
-
+            /* ==================== IDE对比表格 ==================== */
+            .comparison {
+                padding: 6rem 2rem;
+                position: relative;
+            }
+            
+            .comparison-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .comparison-table-wrapper {
+                border-radius: 24px;
+                overflow: visible; /* 修改：让推荐标签可以显示 */
+                margin-top: 3rem;
+                padding-top: 20px; /* 新增：为推荐标签留出空间 */
+            }
+            
+            .comparison-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.95rem;
+                table-layout: fixed; /* 新增：固定表格布局 */
+            }
+            
+            .comparison-table thead {
+                background: linear-gradient(
+                    135deg,
+                    rgba(0, 212, 255, 0.2) 0%,
+                    rgba(123, 44, 191, 0.2) 100%
+                );
+            }
+            
+            .comparison-table th {
+                padding: 1.5rem 0.75rem; /* 调整：减少左右内边距 */
+                text-align: center;
+                font-weight: 600;
+                font-size: 0.9rem; /* 调整：稍微减小字体 */
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                position: relative; /* 新增：为推荐标签定位 */
+            }
+            
+            .comparison-table th:first-child {
+                text-align: left;
+                padding-left: 1.5rem;
+                width: 30%; /* 新增：固定第一列宽度 */
+            }
+            
+            .comparison-table th.highlight {
+                background: linear-gradient(
+                    135deg,
+                    rgba(0, 212, 255, 0.3) 0%,
+                    rgba(123, 44, 191, 0.3) 100%
+                );
+                position: relative;
+                overflow: visible; /* 修改：确保推荐标签可见 */
+            }
+            
+            .comparison-table th.highlight::before {
+                content: '推荐';
+                position: absolute;
+                top: -12px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                color: white;
+                font-size: 0.7rem;
+                padding: 0.25rem 0.75rem;
+                border-radius: 100px;
+                font-weight: 600;
+                white-space: nowrap; /* 新增：防止文字换行 */
+                z-index: 10; /* 新增：确保在最上层 */
+            }
+            
+            .comparison-table tbody tr {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                transition: all 0.3s ease;
+            }
+            
+            .comparison-table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.03);
+            }
+            
+            .comparison-table td {
+                padding: 1rem 0.5rem; /* 调整：减少内边距 */
+                text-align: center;
+                color: var(--text-muted);
+                word-wrap: break-word; /* 新增：允许文字换行 */
+            }
+            
+            .comparison-table td:first-child {
+                text-align: left;
+                padding-left: 1.5rem;
+                color: var(--text-light);
+                font-weight: 500;
+            }
+            
+            .comparison-table td.highlight {
+                background: rgba(0, 212, 255, 0.05);
+            }
+            
+            .comparison-table .feature-name {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem; /* 调整：减少间距 */
+            }
+            
+            .comparison-table .feature-name i {
+                color: var(--primary-color);
+                font-size: 0.9rem; /* 调整：稍微减小图标 */
+                width: 18px;
+                flex-shrink: 0; /* 新增：防止图标被压缩 */
+            }
+            
+            .comparison-table .feature-name span {
+                font-size: 0.9rem; /* 新增：稍微减小文字 */
+            }
+            
+            /* 对比表格图标样式 */
+            .check-yes {
+                color: #22c55e !important;
+                font-size: 1.1rem; /* 调整：稍微减小 */
+            }
+            
+            .check-no {
+                color: #ef4444 !important;
+                font-size: 1.1rem;
+            }
+            
+            .check-partial {
+                color: #f59e0b !important;
+                font-size: 1.1rem;
+            }
+            
+            .ide-logo {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.3rem; /* 调整：减少间距 */
+            }
+            
+            .ide-logo img {
+                width: 36px; /* 调整：稍微减小 */
+                height: 36px;
+                border-radius: 8px;
+            }
+            
+            .ide-logo .ide-name {
+                font-weight: 600;
+                font-size: 0.85rem; /* 调整：减小字体 */
+                line-height: 1.2;
+            }
+            
+            .ide-logo .ide-version {
+                font-size: 0.7rem; /* 调整：减小字体 */
+                color: var(--text-muted);
+                font-weight: 400;
+            }
+            
+            /* 表格底部说明 */
+            .comparison-legend {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .legend-item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.85rem;
+                color: var(--text-muted);
+            }
+            
+            /* ==================== 响应式调整 ==================== */
+            @media (max-width: 1024px) {
+                .comparison-table {
+                    font-size: 0.85rem;
+                }
+                
+                .comparison-table th,
+                .comparison-table td {
+                    padding: 0.875rem 0.4rem;
+                }
+                
+                .comparison-table td:first-child,
+                .comparison-table th:first-child {
+                    padding-left: 1rem;
+                }
+                
+                .ide-logo .ide-name {
+                    font-size: 0.75rem;
+                }
+                
+                .ide-logo .ide-version {
+                    font-size: 0.65rem;
+                }
+                
+                .comparison-table .feature-name span {
+                    font-size: 0.8rem;
+                }
+                
+                .comparison-table .feature-name i {
+                    font-size: 0.8rem;
+                    width: 16px;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                .comparison {
+                    padding: 4rem 1rem;
+                }
+                
+                .comparison-table-wrapper {
+                    border-radius: 16px;
+                    padding-top: 18px;
+                }
+                
+                .comparison-table {
+                    font-size: 0.75rem;
+                }
+            
+                .comparison-table th,
+                .comparison-table td {
+                    padding: 0.75rem 0.25rem;
+                }
+                
+                .comparison-table td:first-child,
+                .comparison-table th:first-child {
+                    padding-left: 0.75rem;
+                    width: 28%;
+                }
+                
+                .comparison-table th.highlight::before {
+                    font-size: 0.6rem;
+                    padding: 0.2rem 0.5rem;
+                    top: -10px;
+                }
+            
+                .ide-logo .ide-name {
+                    font-size: 0.65rem;
+                }
+            
+                .ide-logo .ide-version {
+                    display: none; /* 隐藏版本号节省空间 */
+                }
+                
+                .ide-logo img {
+                    width: 28px;
+                    height: 28px;
+                }
+                
+                .comparison-table .feature-name {
+                    gap: 0.3rem;
+                }
+            
+                .comparison-table .feature-name i {
+                    font-size: 0.7rem;
+                    width: 14px;
+                }
+                
+                .comparison-table .feature-name span {
+                    font-size: 0.7rem;
+                    line-height: 1.3;
+                }
+            
+                .check-yes,
+                .check-no,
+                .check-partial {
+                    font-size: 0.9rem;
+                }
+                
+                .comparison-legend {
+                    gap: 1rem;
+                }
+                
+                .legend-item {
+                    font-size: 0.75rem;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .comparison-table {
+                    font-size: 0.65rem;
+                }
+                
+                .comparison-table th,
+                .comparison-table td {
+                    padding: 0.6rem 0.2rem;
+                }
+                
+                .comparison-table td:first-child,
+                .comparison-table th:first-child {
+                    padding-left: 0.5rem;
+                    width: 26%;
+                }
+                
+                .ide-logo .ide-name {
+                    font-size: 0.6rem;
+                }
+                
+                .ide-logo img {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 6px;
+                }
+                
+                .comparison-table .feature-name i {
+                    display: none; /* 极小屏幕隐藏图标 */
+                }
+                
+                .comparison-table .feature-name span {
+                    font-size: 0.65rem;
+                }
+                
+                .check-yes,
+                .check-no,
+                .check-partial {
+                    font-size: 0.8rem;
+                }
+                
+                .comparison-table th.highlight::before {
+                    font-size: 0.55rem;
+                    padding: 0.15rem 0.4rem;
+                }
+            }
+            
 
         /* ==================== 更新日志 ==================== */
         .changelog {
@@ -1501,7 +1371,7 @@
         <div class="hero-content">
             <div class="hero-badge glass">
                 <i class="fas fa-sparkles"></i>
-                <span>全新版本现已发布</span>
+                <span>全新版本发布</span>
             </div>
             <h1><span class="gradient-text">Compiler IDE</span></h1>
             <p class="subtitle">现代化的C++开发环境，专为提升编程效率而设计。集成智能补全、调试器、竞赛模式等强大功能。</p>
@@ -1510,7 +1380,7 @@
                 <a href="https://github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe" 
                    class="btn-primary" id="downloadBtn">
                     <i class="fas fa-download"></i>
-                        <span id="downloadBtnText">立即下载 v<span class="version-number">加载中...</span></span>
+                    <span id="downloadBtnText">立即下载</span>
                 </a>
                 <a href="#features" class="btn-secondary glass">
                     <i class="fas fa-arrow-right"></i>
@@ -1719,7 +1589,7 @@
                             <th>
                                 <div class="ide-logo">
                                     <span class="ide-name">Visual Studio</span>
-                                    <span class="ide-version">v2026</span>
+                                    <span class="ide-version">v2022</span>
                                 </div>
                             </th>
                         </tr>
@@ -1891,7 +1761,7 @@
                             <td class="highlight"><span style="color: #22c55e;">2025年</span></td>
                             <td><span style="color: #ef4444;">2015年</span></td>
                             <td><span style="color: #f59e0b;">2020年</span></td>
-                            <td><span style="color: #22c55e;">2025年</span></td>
+                            <td><span style="color: #22c55e;">2024年</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1922,24 +1792,43 @@
             <p class="section-desc">持续更新，不断进化</p>
         </div>
         
-        <!-- 动态加载的更新日志容器 -->
-        <div id="changelog-preview">
-            <div class="changelog-loading glass-card">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span>加载更新日志...</span>
-            </div>
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 <span class="version-number">加载中...</span></div>
+            <div class="changelog-date">2025年11月29日</div>
+            <ul>
+                <li>新增智能重构工具（提取方法、重命名变量等）</li>
+                <li>优化竞赛模式，新增多个可禁用功能选项</li>
+                <li>改进编译器路径检测逻辑，支持安装时配置</li>
+                <li>修复错误信息显示问题，增强错误定位功能</li>
+                <li>新增诊断工具，实时监控系统性能</li>
+                <li>改进C++23标准支持，优化编译器兼容性</li>
+            </ul>
         </div>
         
-        <!-- 查看全部按钮 -->
-        <div class="changelog-more fade-in">
-            <a href="https://eric-t800.github.io/changelogs.html" class="btn-changelog glass">
-                <i class="fas fa-history"></i>
-                <span>查看全部更新历史</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.8.6</div>
+            <div class="changelog-date">2025年3月</div>
+            <ul>
+                <li>新增竞赛模式，支持倒计时/正计时</li>
+                <li>新增账户系统，支持用户登录/注册</li>
+                <li>新增诊断工具，CPU/内存监控</li>
+                <li>优化项目管理器，支持右键操作</li>
+                <li>改进语法高亮，支持更多C++20/23特性</li>
+            </ul>
+        </div>
+        
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.0.0</div>
+            <div class="changelog-date">2025年1月</div>
+            <ul>
+                <li>全新多标签页界面</li>
+                <li>集成终端支持</li>
+                <li>代码片段管理器</li>
+                <li>智能代码补全</li>
+                <li>自动更新功能</li>
+            </ul>
         </div>
     </section>
-
 
     <!-- 常见问题 -->
     <section class="faq" id="faq">
@@ -1950,7 +1839,7 @@
         </div>
         
         <div class="faq-item glass-card fade-in">
-                        <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-question            <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Compiler IDE 支持哪些操作系统？</span>
                 <i class="fas fa-chevron-down"></i>
             </div>
@@ -2054,39 +1943,40 @@
     <script>
         // ==================== 生成星空背景 ====================
         function createStars() {
-    const starsContainer = document.getElementById('stars');
-    const shootingStarsContainer = document.getElementById('shootingStars');
-    
-    // 创建静态星星
-    for (let i = 0; i < 200; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.width = Math.random() * 3 + 1 + 'px';
-        star.style.height = star.style.width;
-        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-        star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
-        star.style.animationDelay = Math.random() * 5 + 's';
-        starsContainer.appendChild(star);
-    }
-    
-    // 创建流星 - 修复位置和延迟
-    for (let i = 0; i < 6; i++) {
-        const shootingStar = document.createElement('div');
-        shootingStar.className = 'shooting-star';
-        // 流星从屏幕左上区域开始，随机分布
-        shootingStar.style.left = Math.random() * 60 + '%';
-        shootingStar.style.top = Math.random() * 40 + '%';
-        // 随机延迟，让流星不同时出现
-        shootingStar.style.animationDelay = (Math.random() * 8 + i * 2) + 's';
-        // 随机动画时长，让流星速度有差异
-        shootingStar.style.animationDuration = (Math.random() * 2 + 3) + 's';
-        shootingStarsContainer.appendChild(shootingStar);
-    }
-}
+            const starsContainer = document.getElementById('stars');
+            const shootingStarsContainer = document.getElementById('shootingStars');
+            
+            // 创建静态星星
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+                star.style.animationDelay = Math.random() * 5 + 's';
+                starsContainer.appendChild(star);
+            }
+            
+            // 创建流星 - 修复位置和延迟
+            for (let i = 0; i < 6; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                // 流星从屏幕左上区域开始，随机分布
+                shootingStar.style.left = Math.random() * 60 + '%';
+                shootingStar.style.top = Math.random() * 40 + '%';
+                // 随机延迟，让流星不同时出现
+                shootingStar.style.animationDelay = (Math.random() * 8 + i * 2) + 's';
+                // 随机动画时长，让流星速度有差异
+                shootingStar.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                shootingStarsContainer.appendChild(shootingStar);
+            }
+        }
+        
+        createStars();
 
-createStars();
 
         // ==================== 导航栏滚动效果 ====================
         const navbar = document.getElementById('navbar');
@@ -2201,126 +2091,20 @@ createStars();
         // ==================== 获取最新版本号 ====================
         async function fetchLatestVersion() {
             try {
-                // 从 version.txt 读取版本号（加时间戳防止缓存）
-                const response = await fetch('https://eric-t800.github.io/version.txt?' + Date.now());
-                
-                if (!response.ok) {
-                    throw new Error('无法获取 version.txt');
-                }
-                
-                // 读取文本内容并去除空白
-                const version = (await response.text()).trim();
-                
-                // 验证是否为有效版本号格式（如 3.0.0 或 2.9）
-                if (!/^\d+\.\d+(\.\d+)?$/.test(version)) {
-                    throw new Error('版本号格式无效: ' + version);
-                }
-                
-                // 更新页面上所有显示版本号的地方
+                const response = await fetch('https://api.github.com/repos/Eric-T800/Eric-T800.github.io/releases/latest');
+                const data = await response.json();
+                const version = data.tag_name || 'v2.8.9';
                 document.querySelectorAll('.version-number').forEach(el => {
                     el.textContent = version;
                 });
-                
-                console.log('✅ 版本号已从 version.txt 读取:', version);
-                
             } catch (error) {
-                console.error('❌ 读取版本号失败:', error);
-                // 失败时显示错误提示
                 document.querySelectorAll('.version-number').forEach(el => {
-                    el.textContent = '?.?.?';
+                    el.textContent = '2.8.9';
                 });
             }
         }
         
-        // 更新所有版本号显示
-        function updateVersionDisplay(version) {
-            // 更新所有 .version-number 元素
-            document.querySelectorAll('.version-number').forEach(el => {
-                el.textContent = version;
-            });
-            
-            // 更新下载按钮文字
-            const downloadBtnText = document.getElementById('downloadBtnText');
-            if (downloadBtnText) {
-                downloadBtnText.innerHTML = `立即下载 v${version}`;
-            }
-        }
-        
-        // 从 changelogs.html 获取最新两个版本
-        async function fetchChangelogPreview() {
-            const container = document.getElementById('changelog-preview');
-            if (!container) return;
-            
-            try {
-                const response = await fetch('https://eric-t800.github.io/changelogs.html');
-                if (!response.ok) throw new Error('Failed to fetch');
-                
-                const html = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                // 获取前两个更新日志
-                const items = doc.querySelectorAll('.changelog-item');
-                
-                if (items.length >= 2) {
-                    container.innerHTML = '';
-                    
-                    for (let i = 0; i < 2; i++) {
-                        const clone = items[i].cloneNode(true);
-                        clone.classList.add('fade-in');
-                        container.appendChild(clone);
-                    }
-                    
-                    // 触发动画
-                    setTimeout(() => {
-                        container.querySelectorAll('.fade-in').forEach((el, index) => {
-                            setTimeout(() => el.classList.add('visible'), index * 150);
-                        });
-                    }, 100);
-                } else {
-                    throw new Error('Not enough items');
-                }
-            } catch (error) {
-                console.log('加载更新日志失败，使用备用内容');
-                showFallbackChangelog(container);
-            }
-        }
-        
-        // 备用更新日志内容
-        function showFallbackChangelog(container) {
-            container.innerHTML = `
-                <div class="changelog-item glass-card fade-in visible">
-                    <div class="changelog-version">
-                        版本 <span class="version-number">3.0.0</span>
-                        <span class="latest-badge">最新</span>
-                    </div>
-                    <div class="changelog-date">2025年6月</div>
-                    <ul>
-                        <li>修复了若干已知的 Bug</li>
-                        <li>新增了比赛模式</li>
-                        <li>新增了诊断工具、代码片段功能</li>
-                    </ul>
-                </div>
-                <div class="changelog-item glass-card fade-in visible">
-                    <div class="changelog-version">版本 2.9.0</div>
-                    <div class="changelog-date">2025年5月</div>
-                    <ul>
-                        <li>修复已知 Bug，优化用户体验</li>
-                    </ul>
-                </div>
-            `;
-        }
-        
-        // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            createShootingStars();
-            handleScrollAnimations();
-            fetchLatestVersion();
-            fetchChangelogPreview();
-        });
-
-
+        fetchLatestVersion();
 
         // ==================== 页面加载完成动画 ====================
         window.addEventListener('load', () => {
