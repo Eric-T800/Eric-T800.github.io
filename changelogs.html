@@ -7,14 +7,10 @@
     <link rel="icon" href="https://eric-t800.github.io/CompilerIDE_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 复制主页的所有CSS变量和基础样式 */
         :root {
             --primary-color: #00d4ff;
             --secondary-color: #7b2cbf;
             --accent-color: #ff6b35;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: rgba(0, 0, 0, 0.3);
             --text-light: #ffffff;
             --text-muted: rgba(255, 255, 255, 0.7);
         }
@@ -29,7 +25,7 @@
             min-height: 100vh;
         }
 
-        /* 星空背景 - 从主页复制 */
+        /* 星空背景 */
         .starfield {
             position: fixed;
             top: 0; left: 0;
@@ -170,7 +166,7 @@
             font-size: 1.2rem;
         }
 
-        /* 更新日志列表 */
+        /* 更新日志容器 */
         .changelog-container {
             max-width: 900px;
             margin: 0 auto;
@@ -183,6 +179,9 @@
             border-radius: 20px;
             border-left: 4px solid var(--primary-color);
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
 
         .changelog-item::before {
@@ -204,6 +203,10 @@
             box-shadow: 0 0 20px var(--accent-color);
         }
 
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .changelog-version {
             font-size: 1.5rem;
             font-weight: 700;
@@ -215,6 +218,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .latest-badge {
@@ -245,29 +249,24 @@
             color: var(--accent-color);
         }
 
-        /* 动画 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
         }
 
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
+        .loading i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--primary-color);
         }
 
-        .changelog-item:nth-child(1) { animation-delay: 0.1s; }
-        .changelog-item:nth-child(2) { animation-delay: 0.15s; }
-        .changelog-item:nth-child(3) { animation-delay: 0.2s; }
-        .changelog-item:nth-child(4) { animation-delay: 0.25s; }
-        .changelog-item:nth-child(5) { animation-delay: 0.3s; }
-        .changelog-item:nth-child(6) { animation-delay: 0.35s; }
-        .changelog-item:nth-child(7) { animation-delay: 0.4s; }
-        .changelog-item:nth-child(8) { animation-delay: 0.45s; }
-        .changelog-item:nth-child(9) { animation-delay: 0.5s; }
-        .changelog-item:nth-child(10) { animation-delay: 0.55s; }
-        .changelog-item:nth-child(11) { animation-delay: 0.6s; }
-        .changelog-item:nth-child(12) { animation-delay: 0.65s; }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
         /* 滚动条 */
         ::-webkit-scrollbar { width: 10px; }
@@ -275,6 +274,13 @@
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 10px; }
 
         ::selection { background: rgba(0, 212, 255, 0.3); color: white; }
+
+        @media (max-width: 768px) {
+            .page-header { padding: 4rem 1rem 2rem; }
+            .changelog-container { padding: 0 1rem 3rem; }
+            .changelog-item { padding: 1.5rem; }
+            .changelog-version { font-size: 1.25rem; }
+        }
     </style>
 </head>
 <body>
@@ -299,114 +305,11 @@
     </header>
 
     <!-- 更新日志列表 -->
-    <main class="changelog-container">
-        
-        <div class="changelog-item glass-card fade-in latest">
-            <div class="changelog-version">
-                版本 <span class="version-number">加载中...</span>
-                <span class="latest-badge">最新版本</span>
-            </div>
-            <ul>
-                <li>修复了调试面板的 Bug</li>
-                <li>支持查看调用栈信息、变量调用等功能</li>
-                <li>新增调试器路径选择功能</li>
-            </ul>
+    <main class="changelog-container" id="changelog-container">
+        <div class="loading">
+            <i class="fas fa-spinner"></i>
+            <span>加载中...</span>
         </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 3.0.0</div>
-            <ul>
-                <li>修复了若干已知的 Bug</li>
-                <li>新增了比赛模式</li>
-                <li>新增了诊断工具、代码片段功能</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.9.0</div>
-            <ul>
-                <li>修复已知 Bug，优化用户体验</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.8.9</div>
-            <ul>
-                <li>新增代码补全功能</li>
-                <li>新增终端功能</li>
-                <li>新增调试功能</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.8.6</div>
-            <ul>
-                <li>修复了下载进度条无法显示的 Bug</li>
-                <li>新增了启动和欢迎界面</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.8.4</div>
-            <ul>
-                <li>修复了深色模式无法切换到浅色模式的 Bug</li>
-                <li>支持在 IDE 内下载编译器</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.8.3</div>
-            <ul>
-                <li>修复了文件资源管理器无法正确显示的 Bug</li>
-                <li>修复了文件资源管理器地址显示错误的 Bug</li>
-                <li>对自动括号补全进行了重构</li>
-                <li>新增 AI 建议功能（需提供 API 且该功能目前暂不开放）</li>
-                <li>拥有全新的 UI 界面</li>
-                <li>新增查找、替换功能</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.4.9</div>
-            <ul>
-                <li>美化界面</li>
-                <li>新增文件资源管理器功能</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.4.7</div>
-            <ul>
-                <li>修复已知问题，优化用户体验</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.4.1</div>
-            <ul>
-                <li>修复已知问题</li>
-                <li>新增编译器路径选择功能</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.0</div>
-            <ul>
-                <li>修复已知问题</li>
-                <li>新增深色模式和浅色模式切换功能</li>
-                <li>界面进行了重大升级</li>
-                <li>新增自动括号补全和自动缩进</li>
-            </ul>
-        </div>
-
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 1.0</div>
-            <ul>
-                <li>支持一键编译运行功能</li>
-                <li>支持代码修改等功能</li>
-            </ul>
-        </div>
-
     </main>
 
     <script>
@@ -440,21 +343,38 @@
         }
         createStars();
 
-        // 获取版本号
-        async function fetchLatestVersion() {
+        // 获取并渲染更新日志
+        async function loadChangelogs() {
+            const container = document.getElementById('changelog-container');
+            
             try {
-                const response = await fetch('https://eric-t800.github.io/version.txt');
-                const version = (await response.text()).trim();
-                document.querySelectorAll('.version-number').forEach(el => {
-                    el.textContent = version;
-                });
+                const response = await fetch('https://eric-t800.github.io/changelog-data.json');
+                const data = await response.json();
+                
+                container.innerHTML = data.changelogs.map((log, index) => `
+                    <div class="changelog-item glass-card ${index === 0 ? 'latest' : ''}" style="animation-delay: ${index * 0.05}s;">
+                        <div class="changelog-version">
+                            版本 ${log.version}
+                            ${index === 0 ? '<span class="latest-badge">最新版本</span>' : ''}
+                        </div>
+                        <ul>
+                            ${log.changes.map(change => `<li>${change}</li>`).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+                
             } catch (error) {
-                document.querySelectorAll('.version-number').forEach(el => {
-                    el.textContent = '3.0.7';
-                });
+                console.error('加载失败:', error);
+                container.innerHTML = `
+                    <div class="loading">
+                        <i class="fas fa-exclamation-triangle" style="animation: none; color: var(--accent-color);"></i>
+                        <span>加载失败，请刷新页面重试</span>
+                    </div>
+                `;
             }
         }
-        fetchLatestVersion();
+        
+        loadChangelogs();
     </script>
 </body>
 </html>
