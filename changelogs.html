@@ -7,6 +7,7 @@
     <link rel="icon" href="https://eric-t800.github.io/CompilerIDE_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* 复制主页的所有CSS变量和基础样式 */
         :root {
             --primary-color: #00d4ff;
             --secondary-color: #7b2cbf;
@@ -18,38 +19,27 @@
             --text-muted: rgba(255, 255, 255, 0.7);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text-light);
             background: #0a0a1a;
-            overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* ==================== 动态星空背景 ==================== */
+        /* 星空背景 - 从主页复制 */
         .starfield {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
             overflow: hidden;
             background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0d0d2b 100%);
         }
 
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
+        .stars { position: absolute; width: 100%; height: 100%; }
 
         .star {
             position: absolute;
@@ -66,23 +56,19 @@
 
         .shooting-star {
             position: absolute;
-            width: 150px;
-            height: 2px;
+            width: 150px; height: 2px;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(255,255,255,0.9));
             animation: shoot 4s ease-in-out infinite;
             opacity: 0;
-            transform-origin: left center;
             border-radius: 100px;
         }
 
         .shooting-star::before {
             content: '';
             position: absolute;
-            right: 0;
-            top: 50%;
+            right: 0; top: 50%;
             transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             background: white;
             border-radius: 50%;
             box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
@@ -97,8 +83,7 @@
 
         .nebula {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             background: 
                 radial-gradient(ellipse at 20% 30%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 70%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
@@ -119,31 +104,9 @@
             opacity: 0.3;
         }
 
-        .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--primary-color);
-            top: 10%;
-            left: 10%;
-        }
-
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: var(--secondary-color);
-            top: 60%;
-            right: 10%;
-            animation-delay: -5s;
-        }
-
-        .orb-3 {
-            width: 250px;
-            height: 250px;
-            background: var(--accent-color);
-            bottom: 20%;
-            left: 30%;
-            animation-delay: -10s;
-        }
+        .orb-1 { width: 300px; height: 300px; background: var(--primary-color); top: 10%; left: 10%; }
+        .orb-2 { width: 400px; height: 400px; background: var(--secondary-color); top: 60%; right: 10%; animation-delay: -5s; }
+        .orb-3 { width: 250px; height: 250px; background: var(--accent-color); bottom: 20%; left: 30%; animation-delay: -10s; }
 
         @keyframes floatOrb {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -152,7 +115,7 @@
             75% { transform: translate(-50px, -20px) scale(1.05); }
         }
 
-        /* ==================== Glass 效果 ==================== */
+        /* Glass 效果 */
         .glass {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.02) 100%);
             backdrop-filter: blur(20px) saturate(180%);
@@ -167,218 +130,78 @@
             -webkit-backdrop-filter: blur(15px) saturate(150%);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            position: relative;
-            overflow: hidden;
         }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: 0.6s;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        /* ==================== 导航栏 ==================== */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 100px;
-            margin-left: 2rem;
-            margin-right: 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-light);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* ==================== 页面标题 ==================== */
+        /* 页面头部 */
         .page-header {
-            padding: 8rem 2rem 4rem;
+            padding: 6rem 2rem 3rem;
             text-align: center;
         }
 
-        .page-header h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% auto;
-            animation: gradientFlow 5s ease infinite;
-        }
-
-        @keyframes gradientFlow {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .current-version {
+        .back-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 100px;
-            font-size: 0.9rem;
-            margin-top: 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
         }
 
-        .current-version i {
-            color: var(--primary-color);
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
         }
 
-        /* ==================== 时间线 ==================== */
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* 更新日志列表 */
         .changelog-container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 3rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 50%, rgba(123, 44, 191, 0.2) 100%);
+            padding: 0 2rem 4rem;
         }
 
         .changelog-item {
             padding: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             border-radius: 20px;
+            border-left: 4px solid var(--primary-color);
             position: relative;
-            transition: all 0.4s ease;
-        }
-
-        .changelog-item:hover {
-            transform: translateX(10px);
-            border-color: rgba(0, 212, 255, 0.3);
         }
 
         .changelog-item::before {
             content: '';
             position: absolute;
-            left: -2.5rem;
-            top: 2rem;
-            width: 18px;
-            height: 18px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            left: -10px; top: 2rem;
+            width: 16px; height: 16px;
+            background: var(--primary-color);
             border-radius: 50%;
             box-shadow: 0 0 20px var(--primary-color);
-            z-index: 1;
         }
 
         .changelog-item.latest {
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            background: linear-gradient(145deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border-left-color: var(--accent-color);
         }
 
         .changelog-item.latest::before {
-            width: 24px;
-            height: 24px;
-            left: -2.65rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px var(--primary-color); }
-            50% { box-shadow: 0 0 40px var(--primary-color), 0 0 60px var(--secondary-color); }
-        }
-
-        .latest-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.75rem;
-            vertical-align: middle;
+            background: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
         }
 
         .changelog-version {
@@ -389,36 +212,30 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.5rem;
-        }
-
-        .changelog-date {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1.25rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
-        .changelog-date i {
-            color: var(--primary-color);
-            font-size: 0.8rem;
+        .latest-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, var(--accent-color), #ff8c5a);
+            border-radius: 100px;
+            color: white;
+            -webkit-text-fill-color: white;
         }
 
         .changelog-item ul {
             list-style: none;
+            margin-top: 1rem;
         }
 
         .changelog-item li {
             padding: 0.5rem 0;
-            padding-left: 1.75rem;
+            padding-left: 1.5rem;
             position: relative;
             color: var(--text-muted);
-            transition: color 0.3s;
-        }
-
-        .changelog-item li:hover {
-            color: var(--text-light);
         }
 
         .changelog-item li::before {
@@ -426,123 +243,42 @@
             position: absolute;
             left: 0;
             color: var(--accent-color);
-            font-size: 0.8rem;
         }
 
-        .version-type {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .version-type.major {
-            background: rgba(255, 107, 53, 0.2);
-            color: var(--accent-color);
-        }
-
-        .version-type.minor {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--primary-color);
-        }
-
-        .version-type.patch {
-            background: rgba(123, 44, 191, 0.2);
-            color: var(--secondary-color);
-        }
-
-        /* ==================== 返回按钮 ==================== */
-        .back-button {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100;
-        }
-
-        .back-button:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3), 0 0 30px rgba(0, 212, 255, 0.2);
-        }
-
-        /* ==================== 页脚 ==================== */
-        footer {
-            padding: 4rem 2rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 4rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .copyright {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* ==================== 动画 ==================== */
+        /* 动画 */
         .fade-in {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ==================== 响应式 ==================== */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .page-header { padding: 7rem 1.5rem 3rem; }
-            .page-header h1 { font-size: 2rem; }
-            .changelog-container { padding: 1rem; }
-            .timeline { padding-left: 2rem; }
-            .timeline::before { left: 5px; }
-            .changelog-item { padding: 1.5rem; }
-            .changelog-item::before { left: -1.75rem; width: 14px; height: 14px; }
-            .changelog-item.latest::before { width: 18px; height: 18px; left: -1.85rem; }
-            .changelog-version { font-size: 1.25rem; }
-            .back-button { width: 50px; height: 50px; font-size: 1.25rem; bottom: 1.5rem; right: 1.5rem; }
-        }
+        .changelog-item:nth-child(1) { animation-delay: 0.1s; }
+        .changelog-item:nth-child(2) { animation-delay: 0.15s; }
+        .changelog-item:nth-child(3) { animation-delay: 0.2s; }
+        .changelog-item:nth-child(4) { animation-delay: 0.25s; }
+        .changelog-item:nth-child(5) { animation-delay: 0.3s; }
+        .changelog-item:nth-child(6) { animation-delay: 0.35s; }
+        .changelog-item:nth-child(7) { animation-delay: 0.4s; }
+        .changelog-item:nth-child(8) { animation-delay: 0.45s; }
+        .changelog-item:nth-child(9) { animation-delay: 0.5s; }
+        .changelog-item:nth-child(10) { animation-delay: 0.55s; }
+        .changelog-item:nth-child(11) { animation-delay: 0.6s; }
+        .changelog-item:nth-child(12) { animation-delay: 0.65s; }
 
+        /* 滚动条 */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 10px; }
+
         ::selection { background: rgba(0, 212, 255, 0.3); color: white; }
     </style>
 </head>
 <body>
-    <!-- 动态星空背景 -->
+    <!-- 星空背景 -->
     <div class="starfield">
         <div class="nebula"></div>
         <div class="floating-orb orb-1"></div>
@@ -552,248 +288,134 @@
         <div class="shooting-stars" id="shootingStars"></div>
     </div>
 
-    <!-- 导航栏 -->
-    <nav id="navbar">
-        <div class="nav-container glass">
-            <a href="https://eric-t800.github.io/" class="logo">
-                <i class="fas fa-code"></i>
-                Compiler IDE
-            </a>
-            <ul class="nav-links">
-                <li><a href="https://eric-t800.github.io/#features">功能特性</a></li>
-                <li><a href="https://eric-t800.github.io/#screenshots">界面预览</a></li>
-                <li><a href="https://eric-t800.github.io/#comparison">IDE对比</a></li>
-                <li><a href="https://eric-t800.github.io/#download">下载</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- 页面标题 -->
+    <!-- 页面头部 -->
     <header class="page-header">
-        <h1>更新日志</h1>
-        <p>Compiler IDE 的完整版本历史，记录每一次进步</p>
-        <div class="current-version glass">
-            <i class="fas fa-rocket"></i>
-            <span>当前最新版本：<strong class="version-number">3.0.0</strong></span>
-        </div>
+        <a href="https://eric-t800.github.io/" class="back-btn glass">
+            <i class="fas fa-arrow-left"></i>
+            <span>返回首页</span>
+        </a>
+        <h1 class="page-title">更新日志</h1>
+        <p class="page-subtitle">Compiler IDE 的完整版本历史</p>
     </header>
 
-    <!-- 更新日志时间线 -->
-    <div class="changelog-container">
-        <div class="timeline" id="changelog-data">
-            
-            <!-- 版本 3.0.0 -->
-            <div class="changelog-item glass-card latest fade-in" data-version="3.0.0">
-                <div class="changelog-version">
-                    版本 3.0.0
-                    <span class="version-type major">Major</span>
-                    <span class="latest-badge">最新</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2025年6月
-                </div>
-                <ul>
-                    <li>修复了若干已知的 Bug</li>
-                    <li>新增了比赛模式</li>
-                    <li>新增了诊断工具、代码片段功能</li>
-                </ul>
+    <!-- 更新日志列表 -->
+    <main class="changelog-container">
+        
+        <div class="changelog-item glass-card fade-in latest">
+            <div class="changelog-version">
+                版本 <span class="version-number">加载中...</span>
+                <span class="latest-badge">最新版本</span>
             </div>
-
-            <!-- 版本 2.9.0 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.9.0">
-                <div class="changelog-version">
-                    版本 2.9.0
-                    <span class="version-type minor">Minor</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2025年5月
-                </div>
-                <ul>
-                    <li>修复已知 Bug，优化用户体验</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.8.9 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.8.9">
-                <div class="changelog-version">
-                    版本 2.8.9
-                    <span class="version-type patch">Patch</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2025年4月
-                </div>
-                <ul>
-                    <li>新增代码补全功能</li>
-                    <li>新增终端功能</li>
-                    <li>新增调试功能</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.8.6 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.8.6">
-                <div class="changelog-version">
-                    版本 2.8.6
-                    <span class="version-type patch">Patch</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2025年3月
-                </div>
-                <ul>
-                    <li>修复了下载进度条无法显示的 Bug</li>
-                    <li>新增了启动和欢迎界面</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.8.4 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.8.4">
-                <div class="changelog-version">
-                    版本 2.8.4
-                    <span class="version-type patch">Patch</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2025年2月
-                </div>
-                <ul>
-                    <li>修复了深色模式无法切换到浅色模式的 Bug</li>
-                    <li>支持在 IDE 内下载编译器</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.8.3 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.8.3">
-                <div class="changelog-version">
-                    版本 2.8.3
-                    <span class="version-type patch">Patch</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2025年1月
-                </div>
-                <ul>
-                    <li>修复了文件资源管理器无法正确显示的 Bug</li>
-                    <li>修复了文件资源管理器地址显示错误的 Bug</li>
-                    <li>对自动括号补全进行了重构</li>
-                    <li>新增 AI 建议功能（需提供 API 且该功能目前暂不开放）</li>
-                    <li>拥有全新的 UI 界面</li>
-                    <li>新增查找、替换功能</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.4.9 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.4.9">
-                <div class="changelog-version">
-                    版本 2.4.9
-                    <span class="version-type patch">Patch</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2024年12月
-                </div>
-                <ul>
-                    <li>美化界面</li>
-                    <li>新增文件资源管理器功能</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.4.7 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.4.7">
-                <div class="changelog-version">
-                    版本 2.4.7
-                    <span class="version-type patch">Patch</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2024年11月
-                </div>
-                <ul>
-                    <li>修复已知问题，优化用户体验</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.4.1 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.4.1">
-                <div class="changelog-version">
-                    版本 2.4.1
-                    <span class="version-type patch">Patch</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2024年10月
-                </div>
-                <ul>
-                    <li>修复已知问题</li>
-                    <li>新增编译器路径选择功能</li>
-                </ul>
-            </div>
-
-            <!-- 版本 2.0 -->
-            <div class="changelog-item glass-card fade-in" data-version="2.0">
-                <div class="changelog-version">
-                    版本 2.0
-                    <span class="version-type major">Major</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2024年9月
-                </div>
-                <ul>
-                    <li>修复已知问题</li>
-                    <li>新增深色模式和浅色模式切换功能</li>
-                    <li>界面进行了重大升级</li>
-                    <li>新增自动括号补全和自动缩进</li>
-                </ul>
-            </div>
-
-            <!-- 版本 1.0 -->
-            <div class="changelog-item glass-card fade-in" data-version="1.0">
-                <div class="changelog-version">
-                    版本 1.0
-                    <span class="version-type major">Major</span>
-                </div>
-                <div class="changelog-date">
-                    <i class="fas fa-calendar-alt"></i>
-                    2024年8月
-                </div>
-                <ul>
-                    <li>支持一键编译运行功能</li>
-                    <li>支持代码修改等功能</li>
-                </ul>
-            </div>
-
+            <ul>
+                <li>修复了调试面板的 Bug</li>
+                <li>支持查看调用栈信息、变量调用等功能</li>
+                <li>新增调试器路径选择功能</li>
+            </ul>
         </div>
-    </div>
 
-    <!-- 返回主页按钮 -->
-    <a href="https://eric-t800.github.io/" class="back-button glass" title="返回主页">
-        <i class="fas fa-home"></i>
-    </a>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://eric-t800.github.io/">首页</a>
-                <a href="https://eric-t800.github.io/#features">功能特性</a>
-                <a href="https://eric-t800.github.io/#screenshots">界面预览</a>
-                <a href="https://eric-t800.github.io/#download">下载</a>
-                <a href="https://github.com/Eric-T800/CompilerIDE">GitHub</a>
-            </div>
-            <p class="copyright">© 2024-2025 Compiler IDE. All rights reserved.</p>
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 3.0.0</div>
+            <ul>
+                <li>修复了若干已知的 Bug</li>
+                <li>新增了比赛模式</li>
+                <li>新增了诊断工具、代码片段功能</li>
+            </ul>
         </div>
-    </footer>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.9.0</div>
+            <ul>
+                <li>修复已知 Bug，优化用户体验</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.8.9</div>
+            <ul>
+                <li>新增代码补全功能</li>
+                <li>新增终端功能</li>
+                <li>新增调试功能</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.8.6</div>
+            <ul>
+                <li>修复了下载进度条无法显示的 Bug</li>
+                <li>新增了启动和欢迎界面</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.8.4</div>
+            <ul>
+                <li>修复了深色模式无法切换到浅色模式的 Bug</li>
+                <li>支持在 IDE 内下载编译器</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.8.3</div>
+            <ul>
+                <li>修复了文件资源管理器无法正确显示的 Bug</li>
+                <li>修复了文件资源管理器地址显示错误的 Bug</li>
+                <li>对自动括号补全进行了重构</li>
+                <li>新增 AI 建议功能（需提供 API 且该功能目前暂不开放）</li>
+                <li>拥有全新的 UI 界面</li>
+                <li>新增查找、替换功能</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.4.9</div>
+            <ul>
+                <li>美化界面</li>
+                <li>新增文件资源管理器功能</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.4.7</div>
+            <ul>
+                <li>修复已知问题，优化用户体验</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.4.1</div>
+            <ul>
+                <li>修复已知问题</li>
+                <li>新增编译器路径选择功能</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 2.0</div>
+            <ul>
+                <li>修复已知问题</li>
+                <li>新增深色模式和浅色模式切换功能</li>
+                <li>界面进行了重大升级</li>
+                <li>新增自动括号补全和自动缩进</li>
+            </ul>
+        </div>
+
+        <div class="changelog-item glass-card fade-in">
+            <div class="changelog-version">版本 1.0</div>
+            <ul>
+                <li>支持一键编译运行功能</li>
+                <li>支持代码修改等功能</li>
+            </ul>
+        </div>
+
+    </main>
 
     <script>
-        // ==================== 创建星空 ====================
+        // 生成星空
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starCount = 200;
+            const shootingStarsContainer = document.getElementById('shootingStars');
             
-            for (let i = 0; i < starCount; i++) {
+            for (let i = 0; i < 200; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -805,75 +427,34 @@
                 star.style.animationDelay = Math.random() * 5 + 's';
                 starsContainer.appendChild(star);
             }
-        }
-
-        // ==================== 创建流星 ====================
-        function createShootingStars() {
-            const container = document.getElementById('shootingStars');
             
-            function addShootingStar() {
-                const star = document.createElement('div');
-                star.className = 'shooting-star';
-                star.style.left = Math.random() * 70 + '%';
-                star.style.top = Math.random() * 40 + '%';
-                star.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                container.appendChild(star);
-                
-                setTimeout(() => star.remove(), 5000);
+            for (let i = 0; i < 6; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.left = Math.random() * 60 + '%';
+                shootingStar.style.top = Math.random() * 40 + '%';
+                shootingStar.style.animationDelay = (Math.random() * 8 + i * 2) + 's';
+                shootingStar.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                shootingStarsContainer.appendChild(shootingStar);
             }
-            
-            setInterval(addShootingStar, 3000);
-            addShootingStar();
         }
+        createStars();
 
-        // ==================== 滚动动画 ====================
-        function handleScrollAnimations() {
-            const elements = document.querySelectorAll('.fade-in');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 100);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            elements.forEach(el => observer.observe(el));
-        }
-
-        // ==================== 导航栏滚动效果 ====================
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // ==================== 获取版本号 ====================
-        async function fetchVersion() {
+        // 获取版本号
+        async function fetchLatestVersion() {
             try {
                 const response = await fetch('https://eric-t800.github.io/version.txt');
                 const version = (await response.text()).trim();
-                if (/^\d+\.\d+(\.\d+)?$/.test(version)) {
-                    document.querySelectorAll('.version-number').forEach(el => {
-                        el.textContent = version;
-                    });
-                }
-            } catch (e) {
-                console.log('使用默认版本号');
+                document.querySelectorAll('.version-number').forEach(el => {
+                    el.textContent = version;
+                });
+            } catch (error) {
+                document.querySelectorAll('.version-number').forEach(el => {
+                    el.textContent = '3.0.7';
+                });
             }
         }
-
-        // ==================== 初始化 ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            createShootingStars();
-            handleScrollAnimations();
-            fetchVersion();
-        });
+        fetchLatestVersion();
     </script>
 </body>
 </html>
