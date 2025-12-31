@@ -1571,7 +1571,7 @@
                             <th class="highlight">
                                 <div class="ide-logo">
                                     <span class="ide-name">Compiler IDE</span>
-                                    <span class="ide-version">v2.8.9</span>
+                                    <span class="ide-version">v3.0.7</span>
                                 </div>
                             </th>
                             <th>
@@ -1792,43 +1792,18 @@
             <p class="section-desc">持续更新，不断进化</p>
         </div>
         
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 <span class="version-number">加载中...</span></div>
-            <div class="changelog-date">2025年11月29日</div>
-            <ul>
-                <li>新增智能重构工具（提取方法、重命名变量等）</li>
-                <li>优化竞赛模式，新增多个可禁用功能选项</li>
-                <li>改进编译器路径检测逻辑，支持安装时配置</li>
-                <li>修复错误信息显示问题，增强错误定位功能</li>
-                <li>新增诊断工具，实时监控系统性能</li>
-                <li>改进C++23标准支持，优化编译器兼容性</li>
-            </ul>
-        </div>
+        <!-- 动态加载的更新日志容器 -->
+        <div id="changelog-container"></div>
         
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.8.6</div>
-            <div class="changelog-date">2025年3月</div>
-            <ul>
-                <li>新增竞赛模式，支持倒计时/正计时</li>
-                <li>新增账户系统，支持用户登录/注册</li>
-                <li>新增诊断工具，CPU/内存监控</li>
-                <li>优化项目管理器，支持右键操作</li>
-                <li>改进语法高亮，支持更多C++20/23特性</li>
-            </ul>
-        </div>
-        
-        <div class="changelog-item glass-card fade-in">
-            <div class="changelog-version">版本 2.0.0</div>
-            <div class="changelog-date">2025年1月</div>
-            <ul>
-                <li>全新多标签页界面</li>
-                <li>集成终端支持</li>
-                <li>代码片段管理器</li>
-                <li>智能代码补全</li>
-                <li>自动更新功能</li>
-            </ul>
+        <!-- 查看全部按钮 -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://eric-t800.github.io/changelogs.html" class="btn-secondary glass" style="display: inline-flex;">
+                <i class="fas fa-history"></i>
+                <span>查看全部更新历史</span>
+            </a>
         </div>
     </section>
+
 
     <!-- 常见问题 -->
     <section class="faq" id="faq">
@@ -2088,23 +2063,77 @@
             });
         });
 
-        // ==================== 获取最新版本号 ====================
-        async function fetchLatestVersion() {
+        // ==================== 获取版本号和更新日志 ====================
+        async function fetchChangelogData() {
             try {
-                const response = await fetch('https://api.github.com/repos/Eric-T800/Eric-T800.github.io/releases/latest');
-                const data = await response.json();
-                const version = data.tag_name || 'v2.8.9';
+                // 获取版本号
+                const versionResponse = await fetch('https://eric-t800.github.io/version.txt');
+                const version = (await versionResponse.text()).trim();
                 document.querySelectorAll('.version-number').forEach(el => {
                     el.textContent = version;
                 });
+        
+                // 获取更新日志数据
+                const changelogResponse = await fetch('https://eric-t800.github.io/changelog-data.json');
+                const data = await changelogResponse.json();
+                
+                // 只显示前2个版本
+                const recentChangelogs = data.changelogs.slice(0, 2);
+                renderChangelogs(recentChangelogs);
+                
             } catch (error) {
+                console.error('获取数据失败:', error);
+                // 显示默认内容
                 document.querySelectorAll('.version-number').forEach(el => {
-                    el.textContent = '2.8.9';
+                    el.textContent = '3.0.7';
                 });
+                renderFallbackChangelogs();
             }
         }
         
-        fetchLatestVersion();
+        function renderChangelogs(changelogs) {
+            const container = document.getElementById('changelog-container');
+            if (!container) return;
+            
+            container.innerHTML = changelogs.map((log, index) => `
+                <div class="changelog-item glass-card fade-in">
+                    <div class="changelog-version">版本 ${log.version}${index === 0 ? ' <span style="font-size: 0.7em; background: linear-gradient(135deg, var(--accent-color), #ff8c5a); padding: 0.2rem 0.6rem; border-radius: 100px; color: white; -webkit-text-fill-color: white; margin-left: 0.5rem;">最新</span>' : ''}</div>
+                    <ul>
+                        ${log.changes.map(change => `<li>${change}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+            
+            // 重新绑定滚动动画
+            container.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+        
+        function renderFallbackChangelogs() {
+            const container = document.getElementById('changelog-container');
+            if (!container) return;
+            
+            container.innerHTML = `
+                <div class="changelog-item glass-card fade-in">
+                    <div class="changelog-version">版本 3.0.7 <span style="font-size: 0.7em; background: linear-gradient(135deg, var(--accent-color), #ff8c5a); padding: 0.2rem 0.6rem; border-radius: 100px; color: white; -webkit-text-fill-color: white; margin-left: 0.5rem;">最新</span></div>
+                    <ul>
+                        <li>修复了调试面板的 Bug</li>
+                        <li>支持查看调用栈信息、变量调用等功能</li>
+                        <li>新增调试器路径选择功能</li>
+                    </ul>
+                </div>
+                <div class="changelog-item glass-card fade-in">
+                    <div class="changelog-version">版本 3.0.0</div>
+                    <ul>
+                        <li>修复了若干已知的 Bug</li>
+                        <li>新增了比赛模式</li>
+                        <li>新增了诊断工具、代码片段功能</li>
+                    </ul>
+                </div>
+            `;
+        }
+        
+        fetchChangelogData();
+
 
         // ==================== 页面加载完成动画 ====================
         window.addEventListener('load', () => {
