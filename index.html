@@ -669,6 +669,30 @@
             font-size: 0.9rem;
         }
 
+        /* ==================== 下载计数动画 ==================== */
+        #downloadCount {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        #downloadCount.updating {
+            transform: scale(1.2);
+            color: var(--accent-color);
+        }
+        
+        /* 加载中的脉动效果 */
+        #downloadCount.loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+
             /* ==================== IDE对比表格 ==================== */
             .comparison {
                 padding: 6rem 2rem;
@@ -1405,6 +1429,11 @@
                     <i class="fas fa-certificate"></i>
                     <span>免费使用</span>
                 </div>
+                <!-- ✨ 新增：下载量显示 -->
+                <div class="meta-item">
+                    <i class="fas fa-download"></i>
+                    <span>累计下载：<span id="downloadCount">200</span> 次</span>
+                </div>
             </div>
         </div>
     </section>
@@ -2090,6 +2119,89 @@
                 renderFallbackChangelogs();
             }
         }
+
+            // ==================== 获取GitHub Releases真实下载量 ====================
+            async function fetchRealDownloadCount() {
+                const countElement = document.getElementById('downloadCount');
+                if (!countElement) return;
+                
+                // 显示加载状态
+                countElement.classList.add('loading');
+                
+                try {
+                    // 获取最新Release的下载量
+                    const response = await fetch('https://api.github.com/repos/Eric-T800/Eric-T800.github.io/releases/latest');
+                    
+                    if (!response.ok) {
+                        throw new Error('API请求失败');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // 计算所有资源的下载总数
+                    const releaseDownloads = data.assets.reduce((sum, asset) => 
+                        sum + asset.download_count, 0
+                    );
+                    
+                    // 基础值改为200
+                    const totalDownloads = 200 + releaseDownloads;
+                    
+                    // 更新显示
+                    countElement.classList.remove('loading');
+                    countElement.textContent = totalDownloads.toLocaleString();
+                    
+                    // 添加更新动画
+                    countElement.classList.add('updating');
+                    setTimeout(() => {
+                        countElement.classList.remove('updating');
+                    }, 300);
+                    
+                    console.log('✅ 下载量更新成功:', totalDownloads, '（基础200 + GitHub真实下载', releaseDownloads, '）');
+                    
+                } catch (error) {
+                    console.error('❌ 获取下载量失败:', error);
+                    // 失败时保持默认值200
+                    countElement.classList.remove('loading');
+                    countElement.textContent = '200';
+                }
+            }
+            
+            // 方法2（备用）：获取所有Releases的总下载量
+            async function fetchAllReleasesDownloadCount() {
+                try {
+                    const response = await fetch('https://api.github.com/repos/Eric-T800/Eric-T800.github.io/releases');
+                    const releases = await response.json();
+                    
+                    let totalDownloads = 0;
+                    releases.forEach(release => {
+                        release.assets.forEach(asset => {
+                            totalDownloads += asset.download_count;
+                        });
+                    });
+                    
+                    return 200 + totalDownloads;
+                } catch (error) {
+                    console.error('获取所有版本下载量失败:', error);
+                    return 200;
+                }
+            }
+            
+            // 在页面加载时调用
+            document.addEventListener('DOMContentLoaded', () => {
+                fetchRealDownloadCount();
+                
+                // 每30秒自动更新一次下载量
+                setInterval(fetchRealDownloadCount, 30 * 1000);
+            });
+            
+            // 点击下载按钮时刷新下载量（延迟3秒，等待GitHub统计更新）
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    setTimeout(() => {
+                        fetchRealDownloadCount();
+                    }, 3000);
+                });
+            });
         
         function renderChangelogs(changelogs) {
             const container = document.getElementById('changelog-container');
