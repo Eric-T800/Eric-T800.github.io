@@ -1,6 +1,12 @@
 {
   "changelogs": [
     {
+      "version": "3.2.1",
+      "changes": [
+        "修复了 3.2.0 版本中的若干 Bug"
+      ]
+    },
+    {
       "version": "3.2.0",
       "changes": [
         "修复了若干已知 Bug",
