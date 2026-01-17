@@ -1,5 +1,4 @@
-1. 修复了用户报告的若干 Bug
-2. 新增了对 EasyX 的支持
-3. 新增临时编译、临时编译运行功能
+1. 修复了 3.2.0 版本中的若干 Bug
+2. 新增反馈问题功能
 
-若下载速度较慢，可从 https://easylink.cc/9pmblc 或 IDE 官网下载
+若下载速度较慢，可从 https://easylink.cc/1wfldo 或 IDE 官网下载
