@@ -1,7 +1,7 @@
 ## IDE 下载
-1. [最新版下载（下载速度极慢）](https://github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe)
+1. [最新版下载](https://gh.nxnow.top/https://github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe)
 
-1. [IDE 官网（最新版 + 下载速度快）](https://eric-t800.github.io/)
+1. [IDE 官网](https://eric-t800.github.io/)
 
 ## 产品简介
 自 $2024$ 年 $5$ 月至 $2026$ 年 $1$ 月 $1$ 日，历经 $20$ 个月的开发，我们终于能将 Compiler IDE，在这个充满寓意着的日子里，呈现给大家！
