@@ -1,5 +1,12 @@
 {
   "changelogs": [
+    {      
+      "version": "3.3.6",
+      "changes": [
+        "修复了 3.3.6 版本中的若干 Bug",
+        "更换 IDE 下载供应商，加快下载速度"
+      ]
+    },
     {
       "version": "3.3.6",
       "changes": [
