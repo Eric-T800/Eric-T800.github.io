@@ -1,5 +1,12 @@
 {
   "changelogs": [
+    {
+      "version": "3.3.8",
+      "changes": [
+        "修复了 3.3.7 版本中的若干 Bug",
+        "新增缺省源功能"
+      ]
+    },
     {      
       "version": "3.3.7",
       "changes": [
