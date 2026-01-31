@@ -8,7 +8,7 @@
 
 这不止是一个 IDE 的诞生，更是属于每一位 OIer 的新故事，即将从这里开始书写。未来已来，共同启程！
 
-本 IDE 由 [Eric1030](https://www.luogu.com.cn/user/995571)、[FlyHappily](https://www.luogu.com.cn/user/1364658)、[HuangRuibo](https://www.luogu.com.cn/user/1286421) 共同开发，支持的编程语言只有 C++。目前最新版本为 3.3.8。操作系统应为 Windows（不支持 Win7 及更低版本）。
+本 IDE 由 [Eric1030](https://www.luogu.com.cn/user/995571)、[FlyHappily](https://www.luogu.com.cn/user/1364658)、[HuangRuibo](https://www.luogu.com.cn/user/1286421) 共同开发，支持的编程语言只有 C++。目前最新版本为 $3.3.9$。操作系统应为 Windows + 64 位操作系统（不支持 Win7 及更低版本）。
 
 截至目前，本 IDE 支持如下功能：
 - [x] 一键编译运行
@@ -26,8 +26,7 @@
 - [x] 代码补全
 - [x] 诊断工具、终端、代码片段
 - [x] 临时编译、临时编译运行
-- [x] 代码美化 
-- [x] 账户系统等
+- [x] 代码美化等
 
 下列功能将会在后续版本中支持：
 - [ ] 基于上下文的智能代码补全
@@ -107,6 +106,10 @@
 ### 3.3.8
 1. 修复了 3.3.7 版本中的若干 Bug
 2. 新增缺省源功能
+
+### 3.3.9
+1. 修复了 3.3.8 版本中的 2 个严重影响使用的 Bug
+2. 优化了保存文件逻辑
 
 ## 预览
 ![](https://cdn.luogu.com.cn/upload/image_hosting/lyqjdhal.png)
