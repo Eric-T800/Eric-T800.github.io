@@ -112,6 +112,11 @@
 1. 修复了 3.3.8 版本中的 2 个严重影响使用的 Bug
 2. 优化了保存文件逻辑
 
+### 3.4.2
+1. 修复了 3.3.9 版本中的若干 Bug
+2. 新增数据评测器功能
+3. 美化了关于框的 UI
+
 ## 预览
 ![](https://cdn.luogu.com.cn/upload/image_hosting/lyqjdhal.png)
 
