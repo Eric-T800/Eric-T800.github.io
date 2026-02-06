@@ -2250,7 +2250,7 @@
             
             container.innerHTML = changelogs.map((log, index) => `
                 <div class="changelog-item glass-card fade-in">
-                    <div class="changelog-version">版本 ${log.version}${index === 0 ? ' <span style="font-size: 0.7em; background: linear-gradient(135deg, var(--accent-color), #ff8c5a); padding: 0.2rem 0.6rem; border-radius: 100px; color: white; -webkit-text-fill-color: white; margin-left: 0.5rem;">最新</span>' : ''}</div>
+                    <div class="changelog-version">v${log.version}${index === 0 ? ' <span style="font-size: 0.7em; background: linear-gradient(135deg, var(--accent-color), #ff8c5a); padding: 0.2rem 0.6rem; border-radius: 100px; color: white; -webkit-text-fill-color: white; margin-left: 0.5rem;">最新</span>' : ''}</div>
                     <ul>
                         ${log.changes.map(change => `<li>${change}</li>`).join('')}
                     </ul>
