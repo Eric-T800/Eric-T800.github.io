@@ -354,7 +354,7 @@
                 container.innerHTML = data.changelogs.map((log, index) => `
                     <div class="changelog-item glass-card ${index === 0 ? 'latest' : ''}" style="animation-delay: ${index * 0.05}s;">
                         <div class="changelog-version">
-                            版本 ${log.version}
+                            v ${log.version}
                             ${index === 0 ? '<span class="latest-badge">最新版本</span>' : ''}
                         </div>
                         <ul>
