@@ -1,1 +1,2 @@
-https://gh-proxy.org/https://github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe
+https://gh-proxy.org/github.com/Eric-T800/Eric-T800.github.io/releases/download/CompilerIDE/CompilerIDE_setup.exe
+
