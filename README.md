@@ -2,11 +2,8 @@
 [IDE 官网 + 下载](https://eric-t800.github.io/)
 
 ## 产品简介
-自 $2024$ 年 $5$ 月至 $2026$ 年 $1$ 月 $1$ 日，历经 $20$ 个月的开发，我们终于能将 Compiler IDE，在这个充满寓意着的日子里，呈现给大家！
 
-这不止是一个 IDE 的诞生，更是属于每一位 OIer 的新故事，即将从这里开始书写。未来已来，共同启程！
-
-本 IDE 由 [Eric1030](https://www.luogu.com.cn/user/995571)、[FlyHappily](https://www.luogu.com.cn/user/1364658)、[HuangRuibo](https://www.luogu.com.cn/user/1286421) 共同开发，支持的编程语言只有 C++。目前最新版本为 $3.4.9$。操作系统应为 Windows + 64 位操作系统（不支持 Win7 及更低版本）。
+本 IDE 由 [Eric1030](https://www.luogu.com.cn/user/995571)、[FlyHappily](https://www.luogu.com.cn/user/1364658)、[HuangRuibo](https://www.luogu.com.cn/user/1286421) 共同开发，支持的编程语言只有 C++。目前最新版本为 $3.5.0$。操作系统应为 Windows + 64 位操作系统（不支持 Win7 及更低版本）。
 
 截至目前，本 IDE 支持如下功能：
 - [x] 一键编译运行
@@ -137,6 +134,13 @@
 5. 新增对拍器功能
 6. 新增字体、字号调整功能
 7. 美化编辑器设置组 UI 和设置框按钮
+
+### 3.5.0
+1. 代码美化重大升级，更准更智能
+2. 洛谷题目爬取器升级，支持洛谷所有新特性
+3. 修复了字体、字号调整后重启 IDE 会恢复原样的 Bug
+4. 修复了临时编译、临时编译运行报错的 Bug
+5. 优化部分 UI，提升用户体验
 
 ## 预览
 ![](https://cdn.luogu.com.cn/upload/image_hosting/lyqjdhal.png)
